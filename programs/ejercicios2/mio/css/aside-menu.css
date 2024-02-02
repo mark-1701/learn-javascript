@@ -1,0 +1,45 @@
+#sidebar {
+    position: fixed;
+    z-index: 998;
+    top: 125px;
+    left: initial;
+    right: 6px;
+    width: 20vw;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 4px;
+    transition: all .5s ease-out;
+    overflow: auto;
+}
+
+/*
+#sidebar ul {
+}
+*/
+
+
+.sidebar-link {
+    display: block;
+    padding: 5px;
+    font-size: 11px;
+    color: var(--primary-color);
+    text-align: center;
+}
+
+.sidebar-link:hover {
+    background-color: var(--primary-color);
+    color: #000;
+}
+
+.mark-link {
+    background-color: var(--primary-color);
+    color: #000;
+}
+
+main {
+    width: 80vw;
+}
+
+.hamburger {
+    display: none;
+}

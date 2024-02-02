@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cargar Archivo</title>
+    <style>
+        html {
+            background-color: #121212;
+            color: white;
+        }
+
+        .uploader {
+            margin-top: 20px;
+        }
+
+        .uploader__progress {
+            width: 0%;
+            height: 20px;
+            background-color: #3498db;
+            margin-bottom: 10px;
+        }
+
+        .uploader__message {
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Subir Archivo</h1>
+    <form method="post" id="file-form">
+        <input type="file" name="archivo_fls[]" id="" multiple><br>
+        <input type="submit" name="subir_btn" value="Subir Archivo">
+    </form>
+    <div class="uploader">
+        <div class="uploader__progress" id="progressBar"></div>
+        <div class="uploader__message" id="uploadMessage"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const form = document.querySelector('#file-form');
+
+        document.addEventListener('submit', async e => {
+            if (e.target.matches('#file-form')) {
+                e.preventDefault();
+                const filesFound = form.querySelector('input[type="file"]');
+                const formData = new FormData();
+                for (let i = 0; i < filesFound.files.length; i++) {
+                    formData.append('archivo_fls[]', filesFound.files[i]);
+                }
+                // formData.append('archivo_fls[]', filesFound.files[0])
+                upload(formData);
+            }
+        });
+
+        const upload = async (formData) => {
+            var progressBar = document.getElementById('progressBar');
+            var uploadMessage = document.getElementById('uploadMessage');
+            try {
+                let options = {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'multipart/form-data'
+                    },
+                    onUploadProgress: function (progressEvent) {
+                        var progress = Math.round((progressEvent.loaded / progressEvent.total) * 100);
+                        progressBar.style.width = progress + '%';
+                        uploadMessage.textContent = 'Descargando... ' + progress + '% completado';
+                    }
+                };
+                let res = await axios.post('http://localhost/dashboard/webpages/03-subir-archivos/subir-archivo.php', formData, options);
+                // if(res.status === 200) alert('Archivo subido éxitosamente :)'); 
+            } catch (error) {
+                console.error(error);
+            }
+        }
+    </script>
+</body>
+
+</html>

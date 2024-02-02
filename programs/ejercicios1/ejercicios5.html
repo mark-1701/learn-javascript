@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Ejercicios 5</h1>
+
+    <script>
+        /*
+        15) Programa una función para convertir números de base binaria a decimal y viceversa, pe. miFuncion(100,2) devolverá 4 base 10.
+        16) Programa una función que devuelva el monto final después de aplicar un descuento a una cantidad dada, pe. miFuncion(1000, 20) devolverá 800.
+        17) Programa una función que dada una fecha válida determine cuantos años han pasado hasta el día de hoy, pe. miFuncion(new Date(1984,4,23)) devolverá 35 años (en 2020).
+        */
+
+        console.log("EJERCICIOS 5 JAVASCRIPT");
+        console.log(
+            `15) Programa una función para convertir números de base binaria a decimal y viceversa, pe. miFuncion(100,2) devolverá 4 base 10.`
+        );
+
+        //SE INVIERTE PARA PODER COMPARAR LOS NÚMEROS POTENCIAS CON EL NÚMERO DE FORMA CORRECTA
+        //EL FOR SACA LOS NÚMEROS ASÍ: 1, 2, 4... Y LA COMPARACIÓN DEBE SER AL REVÉS 100 PASA A SER ESTO 001
+
+        //FUNCIÓN BINARIO A DECIMAL
+        const binarioDecimal = (binario = 0) => {
+            let base = 2;
+            let binarioString = binario.toString();
+            let binarioStringInvertido = binarioString.split('').reverse().join('');
+            let resultado = 0;
+
+            for (let i = 0; i < binarioString.length; i++) {
+                let temp = Math.pow(base, i);
+                let charExtraido = binarioStringInvertido.charAt(i);
+                if (charExtraido == 1) resultado += temp;
+            }
+            console.error(resultado);
+        }
+
+        //FUNCIÓN DECIMAL A BINARIO
+        const decimalBinario = (decimal = 0) => {
+            let temp = "";
+            while (true) {
+                temp += decimal % 2;
+                decimal = Math.floor(decimal / 2);
+                if (decimal === 0) break;
+            }
+            console.warn(temp.split('').reverse().join(''));
+        }
+
+        binarioDecimal(1100101111001);
+        decimalBinario(653);
+
+        console.log(
+            `16) Programa una función que devuelva el monto final después de aplicar un descuento a una cantidad dada, pe. miFuncion(1000, 20) devolverá 800.`
+        );
+
+        const calcularDescuento = (dinero, descuento) => {
+            descuento = dinero * (descuento / 100);
+            return dinero - descuento; 
+        }
+
+        console.warn(`El monto final es de: $ ${calcularDescuento(1000, 20)}.00`);
+
+        console.log(
+            `17) Programa una función que dada una fecha válida determine cuantos años han pasado hasta el día de hoy, pe. miFuncion(new Date(1984,4,23)) devolverá 35 años (en 2020).`
+        );
+        let fecha = new Date();
+        //console.log(fecha.getTime());
+        //console.log(Date.now());
+
+        const calculadorFechas = (year, month, day) => {
+            let fecha = new Date(year, month, day);
+            let calculo = Date.now() - fecha.getTime();
+            let resultado = new Date(calculo);
+            return resultado.getFullYear() - 1970;
+        }
+ 
+        console.warn(calculadorFechas(2000, 0, 14) + " Años de mi DIOSA");
+        console.warn(calculadorFechas(1984, 4, 23) + " Años");
+
+        console.log(`------------------------------------------`);
+        console.log(`EJERCICIOS 1 JAVASCRIPT JONMIRCHA`);
+        console.log(
+            `15) Programa una función para convertir números de base binaria a decimal y viceversa, pe. miFuncion(100,2) devolverá 4 base 10.`
+        );
+        
+        const convertirBinarioDecimal = (numero = undefined, base = undefined) => {
+            if (base === 2) {
+                //BINARIO A DECIMAL
+                return console.warn(`El ${numero} base ${base} = ${parseInt(numero, base)} base 10`);
+            } else if (base === 10) {
+                //DECIMAL A BINARIO
+                return console.warn(`El ${numero} base ${base} = ${(numero.toString(2))} base 2`);
+            } else {
+                console.log("numero no valido");
+            }
+        }
+
+        convertirBinarioDecimal(101, 2);
+        convertirBinarioDecimal(4, 10);
+
+        console.log(
+            `16) Programa una función que devuelva el monto final después de aplicar un descuento a una cantidad dada, pe. miFuncion(1000, 20) devolverá 800.`
+        );
+
+        const aplicarDescuento = (monto = undefined, descuento = 0) => {
+
+            return console.warn(`${monto} - ${descuento}% = ${monto - ((monto * descuento)) / 100}`)
+        }
+
+        aplicarDescuento(80, 50);
+
+        console.log(
+            `17) Programa una función que dada una fecha válida determine cuantos años han pasado hasta el día de hoy, pe. miFuncion(new Date(1984,4,23)) devolverá 35 años (en 2020).`
+        );
+
+        const calcularAnios = (fecha = undefined) => {
+            if (fecha === undefined) return console.warn("No ingreasaste la fecha");
+
+            //Data es object, por eso se usa instanceof para saber el tipo de objeto
+            if (!(fecha instanceof Date)) return console.error("El valor que ingresaste no es una fecha válida");
+
+            let hoyMenosFecha = new Date().getTime() - fecha.getTime();
+            //1000 ms * min * hrs * ds al año
+            let aniosEnMS = 1000 * 60 * 60 * 24 * 365;
+            let aniosHumanos = Math.floor(hoyMenosFecha / aniosEnMS);
+
+
+            return (Math.sign(aniosHumanos) === -1)
+            ? console.warn(`Faltan ${Math.abs(aniosHumanos)} años para el ${fecha.getFullYear()}`)
+            : (Math.sign(aniosHumanos) === 1)
+                ? console.warn(`Han pasado ${aniosHumanos} años, desde ${fecha.getFullYear()}`)
+                : console.warn(`Estamos en el año actual ${fecha.getFullYear()}`);
+        }
+
+        calcularAnios();
+        calcularAnios(false);
+        calcularAnios(new Date())
+        calcularAnios(new Date(1984, 4, 23));
+    </script>
+</body>
+
+</html>

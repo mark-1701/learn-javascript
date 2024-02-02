@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Ejercicios 6</h1>
+    <script>
+        /*
+        18) Programa una función que dada una cadena de texto cuente el número de vocales y consonantes, pe. miFuncion("Hola Mundo") devuelva Vocales: 4, Consonantes: 5.
+        19) Programa una función que valide que un texto sea un nombre válido, pe. miFuncion("Jonathan MirCha") devolverá verdadero.
+        20) Programa una función que valide que un texto sea un email válido, pe. miFuncion("jonmircha@gmail.com") devolverá verdadero.
+        */
+
+        console.log("EJERCICIOS 4 JAVASCRIPT");
+        console.log(
+            `18) Programa una función que dada una cadena de texto cuente el número de vocales y consonantes, pe. miFuncion("Hola Mundo") devuelva Vocales: 4, Consonantes: 5.`
+        );
+
+        const expVocalesConsonates = entrada => {
+            if (typeof entrada != "string") return console.error("No puedes ingresar datos que no sean de tipo String");
+
+            let expReg1 = /[aeiou]/gi;
+            let expReg2 = /([a-zA-Z][aeiou])/gi;
+
+            (expReg1.test(entrada))
+            ? console.warn(`Vocales: ${entrada.match(expReg1).length}`)
+            : console.warn(`No se encontraron vocales`);
+
+            (expReg2.test(entrada))
+            ? console.warn(`Consonantes: ${entrada.match(expReg2).length}`)
+            : console.warn(`No se encontraron consonantes`);
+        }
+
+        let cadena =
+        " a le";
+
+        // /palabra/bandera
+        let expReg2 = /lorem/gi;
+        let expReg3 = /[aeiou]/gi;
+        let expReg4 = /([a-zA-Z][aeiou])/gi;
+
+        console.log(expReg2.test(cadena));
+        console.log(expReg2.exec(cadena));
+        console.log(cadena.match(expReg3).length);
+        console.log(cadena.match(expReg4).length);
+
+        expVocalesConsonates("a e i o u la le li");
+
+        console.log(
+            `19) Programa una función que valide que un texto sea un nombre válido, pe. miFuncion("Jonathan MirCha") devolverá verdadero.`
+        );
+
+        const expNombre = entrada => {
+            if (typeof entrada != "string") return console.error("No puedes ingresar datos que no sean de tipo String");
+            let expReg1 = /^([a-zA-z]+\s)+[a-zA-z]+$/i;
+            //let expReg5 = /^(\w+\s){2,}\w+$/i;
+            return expReg1.test(entrada);
+        }
+
+        let cadena2 = "Jonathan Mircha";
+        console.warn(expNombre(cadena2.trim()));
+
+        console.log(
+            `20) Programa una función que valide que un texto sea un email válido, pe. miFuncion("jonmircha@gmail.com") devolverá verdadero.`
+        );
+
+        const expEmail = entrada => {
+            if (typeof entrada != "string") return console.error("No puedes ingresar datos que no sean de tipo String");
+            let expReg1 = /^[a-zA-Z]+[_.][a-zA-Z]+@(gmail|outlook).(com|net|org)$/i;
+            return expReg1.test(entrada);
+        }
+
+        let cadena3 = "Jonathane_jfd@gmail.org";
+        cadena3 = "vini.muralles@gmail.com"
+        console.warn(expEmail(cadena3));  // Devolverá false
+
+        console.log(`------------------------------------------`);
+        console.log(`EJERCICIOS 6 JAVASCRIPT JONMIRCHA`);
+        console.log(
+            `18) Programa una función que dada una cadena de texto cuente el número de vocales y consonantes, pe. miFuncion("Hola Mundo") devuelva Vocales: 4, Consonantes: 5.`
+        );
+
+        const contarLetras = (cadena = "") => {
+            if (!cadena) return console.warn("No ingresaste una cadena de texto");
+
+            if (typeof cadena != "string") return console.error("No puedes ingresar datos que no sean de tipo String");
+
+            let vocales = 0; 
+            let consonantes = 0; 
+            cadena = cadena.toLocaleLowerCase();
+
+            for (const letra of cadena) {
+                if(/[ÁÉÍÓÚaeiouáéíóú]/.test(letra)) vocales++;
+                if(/[bcdfghjkmnñpqrstvwxyz]/.test(letra)) consonantes++;            
+            }
+
+            /*ESTO ES VALIDO
+            return console.warn({
+                cadena: cadena,
+                vocales: vocales,
+                consonantes: consonantes
+            });
+            */
+           return console.warn({
+            cadena, 
+            vocales,
+            consonantes
+           })
+        }
+        contarLetras();
+        contarLetras(3);
+        contarLetras("Marco");
+        contarLetras("Hola Mundo");
+
+        console.log(
+            `19) Programa una función que valide que un texto sea un nombre válido, pe. miFuncion("Jonathan MirCha") devolverá verdadero.`
+        );
+
+        const validarNombre = (nombre = "") => {
+            if (!nombre) return console.warn("No ingresaste una cadena de texto");
+
+            if (typeof nombre != "string") return console.error("No puedes ingresar datos que no sean de tipo String");
+
+            let expReg = /^[A-Za-zÑñÁÉÍÓÚ\s]+$/g.test(nombre);
+
+            return (expReg)
+            ? console.warn(`${nombre}, es nombre válido`)
+            : console.warn(`${nombre}, NO es nombre válido`);
+        }
+
+        validarNombre();
+        validarNombre(3);
+        validarNombre("Jonathan Mircha");
+        validarNombre("Jonathan Mircha3");
+
+        console.log(
+            `20) Programa una función que valide que un texto sea un email válido, pe. miFuncion("jonmircha@gmail.com") devolverá verdadero.`
+        );
+
+        const validarEmail = (email = "") => {
+            if (!email) return console.warn("No ingresaste una cadena de texto");
+
+            if (typeof email != "string") return console.error("No puedes ingresar datos que no sean de tipo String");
+
+            let expReg = /[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})/i.test(email);
+
+            return (expReg)
+            ? console.warn(`${email}, es email válido`)
+            : console.warn(`${email}, NO es email válido`);
+        }
+
+        validarEmail();
+        validarEmail("vini.muralles@gmail.com");
+
+        //new RegExp() OBJETO PARA EXPRESIONES REGULARES
+        //patron instanceof RegExp
+
+
+
+    </script>
+</body>
+</html>

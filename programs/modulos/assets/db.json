@@ -1,0 +1,41 @@
+{
+  "santos": [
+    {
+      "nombre": "Seiya",
+      "constelacion": "Pegaso2",
+      "id": 1
+    },
+    {
+      "nombre": "Shiryu",
+      "constelacion": "Dragón",
+      "id": 2
+    },
+    {
+      "nombre": "Shun",
+      "constelacion": "Andrómeda1",
+      "id": 4
+    }
+  ],
+  "dioses": [
+    {
+      "id": 1,
+      "nombre": "Athena",
+      "de": "Tierra"
+    },
+    {
+      "id": 2,
+      "nombre": "Poseidón",
+      "de": "Mar"
+    },
+    {
+      "id": 3,
+      "nombre": "Hades",
+      "de": "Inframundo"
+    },
+    {
+      "id": 4,
+      "nombre": "Zeus",
+      "de": "Cielo"
+    }
+  ]
+}

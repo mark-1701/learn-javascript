@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Ejercicios 1 JavaScript</h1>
+    <script>
+        /*
+          5) Programa una función que invierta las palabras de una cadena de texto, pe. miFuncion("Hola Mundo") devolverá "odnuM aloH".
+        6) Programa una función para contar el número de veces que se repite una palabra en un texto largo, pe. miFuncion("hola mundo adios mundo", "mundo") devolverá 2.
+          7) Programa una función que valide si una palabra o frase dada, es un palíndromo (que se lee igual en un sentido que en otro), pe. mifuncion("Salas") devolverá true.
+          8) Programa una función que elimine cierto patrón de caracteres de un texto dado, pe. miFuncion("xyz1, xyz2, xyz3, xyz4 y xyz5", "xyz") devolverá  "1, 2, 3, 4 y 5.
+        */
+
+        console.log("EJERCICIOS 2 JAVASCRIPT");
+        console.log(
+            `5) Programa una función que invierta las palabras de una cadena de texto, pe. miFuncion("Hola Mundo") devolverá "odnuM aloH"`
+        );
+
+        /*
+          convertir String a un array
+          const arreglo = Array.from(entrada);
+          console.warn(arreglo);
+        */
+
+        const funcionInvertir = entrada => {
+            let salida = "";
+            for (let i = entrada.length; i > 0; i--) {
+                salida += entrada.charAt(i - 1);
+            }
+            console.warn(salida);
+            return salida;
+        };
+
+        const funcionInvertir2 = entrada => {
+            return entrada.split("").reverse().join("");
+        }
+
+        funcionInvertir("Hola Mundo");
+        console.warn(funcionInvertir2("Hola Mundo"));
+
+        console.log(
+        `6) Programa una función para contar el número de veces que se repite una palabra en un texto largo, pe. miFuncion("hola mundo adios mundo", "mundo") devolverá 2
+        `);
+
+        const funcionContar = (entrada, buscar) => {
+            let contador = 0;
+            const entradaArray = entrada.split(" ");
+            entradaArray.forEach(element => {
+                if (element == buscar) contador++;
+            });
+            console.warn(contador);
+        }
+
+        //cadena.slice(0, longitud)
+        const funcionContar2 = (entrada, buscar) => console.warn(entrada.match(new RegExp(buscar, "g"), '').length);
+        
+        funcionContar("Hola mundo mundo", "mundo");
+        funcionContar2("Hola mundo mundo", "mundo");
+
+        console.log(
+        `7) Programa una función que valide si una palabra o frase dada, es un palíndromo (que se lee igual en un sentido que en otro), pe. mifuncion("Salas") devolverá true.
+        `);
+
+        const funcionPolindromo = entrada => {
+            let entradaInvertido = funcionInvertir(entrada);
+            (entrada.toLowerCase() === entradaInvertido.toLowerCase())
+            ? console.warn("Sí es políndromo")
+            : console.warn("No es políndromo");
+        }      
+        funcionPolindromo("Salas");
+
+        console.log(
+        `8) Programa una función que elimine cierto patrón de caracteres de un texto dado, pe. miFuncion("xyz1, xyz2, xyz3, xyz4 y xyz5", "xyz") devolverá  "1, 2, 3, 4 y 5.
+        `);
+
+        let lorem = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Est voluptatum facilis cumque, exercitationem autem, iure suscipit harum hic aliquid inventore, minus beatae aspernatur debitis accusantium quidem incidunt blanditiis quaerat vero!";
+
+        const funcionEliminar = (entrada, palabra) => console.warn(entrada.replace(new RegExp(palabra, "g"), ''));
+        funcionEliminar("xyz1, xyz2, xyz3, xyz4 y xyz5", "xyz");
+    </script>
+</body>
+
+</html>

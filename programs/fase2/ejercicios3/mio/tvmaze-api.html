@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      html {
+        text-align: center;
+      }
+
+      .elements {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      }
+
+      img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>tvmaze-api</h1>
+    <main>
+      <form action="" method="get" id="search-actor">
+        <input type="text" name="actor" id="" required />
+        <input type="submit" value="Buscar" />
+      </form>
+      <div class="elements"></div>
+    </main>
+    <template id="element-template">
+      <figure>
+        <img src="" />
+        <figcaption></figcaption>
+      </figure>
+    </template>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.5/axios.min.js"
+      integrity="sha512-TjBzDQIDnc6pWyeM1bhMnDxtWH0QpOXMcVooglXrali/Tj7W569/wd4E8EDjk1CwOAOPSJon1VfcEt1BI4xIrA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      const d = document,
+        $template = d.querySelector("#element-template").content,
+        $main = d.querySelector("main"),
+        $elements = d.querySelector(".elements"),
+        $form = d.querySelector("#search-actor"),
+        $fragment = d.createDocumentFragment();
+
+      d.addEventListener("submit", async e => {
+        if (e.target === $form) {
+          e.preventDefault();
+          try {
+            const options = {
+              params: {
+                q: $form.actor.value
+              }
+            };
+            const res = await axios("https://api.tvmaze.com/search/people", options);
+            // console.log(res.data);
+            $elements.innerHTML = "";
+
+            res.data.forEach(element => {
+              $template.querySelector("figcaption").innerHTML = element.person.name;
+              element.person.image
+                ? ($template.querySelector("img").src = element.person.image.original)
+                : ($template.querySelector("img").src = "assets/images/image-not-found.png");
+              const $clone = d.importNode($template, true);
+              $fragment.appendChild($clone);
+            });
+            $elements.appendChild($fragment); 
+          } catch (error) {
+            console.error(error);
+          }
+        }
+      });
+
+      d.addEventListener("DOMContentLoaded", e => {});
+    </script>
+  </body>
+</html>

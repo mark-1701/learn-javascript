@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // -------------------------------------------
+        //CALLBACKS
+
+        class Empleado {
+            constructor(nombre, edad, salario, puesto) {
+                this.nombre = nombre;
+                this.edad = edad;
+                this.salario = salario;
+                this.puesto = puesto;
+            }
+            toString() {
+                return `Nombre: ${this.nombre},\nEdad: ${this.edad},\nSalario: ${this.salario},\nPuesto: ${this.puesto}`;
+            }
+        }
+
+        const nuevoEmpleado = { nombre: "Marco", edad: 18, salario: 20000, puesto: "Administrador" };
+
+        const empleados = [
+            new Empleado("Marco", 21, 2000, "administrador"),
+            new Empleado("Gato", 18, 1000, "secretaria"),
+            new Empleado("Eduardo", 20, 8000, "contador")
+        ];
+
+        const funcionFiltradoSalario = array => {
+            const nuevosEmpleados = array.filter(empleado => empleado.salario > 4000);
+            console.log("--------------------------")
+            nuevosEmpleados.forEach(element => {
+                console.warn(element.toString());
+            });
+        }
+
+        const funcionFiltradoEdad = array => {
+            const nuevosEmpleados = array.filter(empleado => empleado.edad > 18);
+            console.log("--------------------------")
+            nuevosEmpleados.forEach(element => {
+                console.warn(element.toString());
+            });
+        }
+
+        const funcionMain = (empleados, callback) => {
+            callback(empleados);
+        }
+
+        funcionMain(empleados, funcionFiltradoSalario);
+        funcionMain(empleados, funcionFiltradoEdad);
+
+        // -------------------------------------------
+        // PROMESAS 
+
+        // Base de datos ficticia con información de usuarios
+        const baseDeDatos = {
+            'usuario123': {
+                id: 'usuario123',
+                nombre: 'Ejemplo Usuario',
+                email: 'ejemplo@usuario.com',
+                edad: 25
+            },
+            'usuario456': {
+                id: 'usuario456',
+                nombre: 'Otro Usuario',
+                email: 'otro@usuario.com',
+                edad: 30
+            }
+        };
+
+        // Función que simula una consulta a la base de datos por el ID del usuario
+        function consultarUsuarioPorId(id) {
+            return new Promise(function (resolve, reject) {
+                setTimeout(function () {
+                    const usuario = baseDeDatos[id];
+                    if (usuario) {
+                        resolve(usuario); // Resolvemos la promesa con la información del usuario
+                    } else {
+                        reject('El usuario no existe'); // Rechazamos la promesa si el usuario no se encuentra en la base de datos
+                    }
+                }, 1500); // Simulamos un tiempo de consulta de 1.5 segundos
+            });
+        }
+
+        // Uso de la función para obtener información del usuario
+        const idUsuario = 'usuario123'; // ID del usuario que queremos consultar
+
+        console.log('Consultando información del usuario...');
+        consultarUsuarioPorId(idUsuario)
+            .then(function (usuario) {
+                console.log('Información del usuario encontrada:', usuario);
+            })
+            .catch(function (error) {
+                console.error('Error al consultar usuario:', error);
+            });
+
+        // EJEMPLO 2 DE PROMESAS EN JAVASCRIPT
+
+        function cuadradoPromise(value) {
+            if (typeof value !== "number") {
+                return Promise.reject(
+                    `Error, el valor " ${value} " ingresado no es un número`
+                );
+            }
+
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve({
+                        value,
+                        result: value * value,
+                    });
+                }, 0 | (Math.random() * 1000));
+            });
+        }
+
+        cuadradoPromise(0)
+            .then((obj) => {
+                //console.log(obj);
+                console.log("Inicio Promise");
+                console.log(`Promise: ${obj.value}, ${obj.result}`);
+                return cuadradoPromise(1);
+            })
+            .then((obj) => {
+                console.log(`Promise: ${obj.value}, ${obj.result}`);
+                return cuadradoPromise(2);
+            })
+            .then((obj) => {
+                console.log(`Promise: ${obj.value}, ${obj.result}`);
+                return cuadradoPromise(3);
+            })
+            .then((obj) => {
+                console.log(`Promise: ${obj.value}, ${obj.result}`);
+                return cuadradoPromise("4");
+            })
+            .then((obj) => {
+                console.log(`Promise: ${obj.value}, ${obj.result}`);
+                return cuadradoPromise(5);
+            })
+            .then((obj) => {
+                console.log(`Promise: ${obj.value}, ${obj.result}`);
+                console.log("Fin Promise");
+            })
+            .catch((err) => console.error(err));
+
+
+        // -------------------------------------------
+        //ASYNC / AWAIT
+
+        function cuadradoPromise(value) {
+            if (typeof value !== "number") {
+                return Promise.reject(
+                    `Error, el valor " ${value} " ingresado no es un número`
+                );
+            }
+
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve({
+                        value,
+                        result: value * value,
+                    });
+                }, 0 | (Math.random() * 1000));
+            });
+        }
+
+        async function funcionAsincronaDeclarada() {
+            try {
+                console.log("Inicio Async Function");
+
+                let obj = await cuadradoPromise(0);
+                console.log(`Async Function: ${obj.value}, ${obj.result}`);
+
+                obj = await cuadradoPromise(1);
+                console.log(`Async Function: ${obj.value}, ${obj.result}`);
+
+                obj = await cuadradoPromise(2);
+                console.log(`Async Function: ${obj.value}, ${obj.result}`);
+
+                obj = await cuadradoPromise("3");
+                console.log(`Async Function: ${obj.value}, ${obj.result}`);
+
+                obj = await cuadradoPromise(4);
+                console.log(`Async Function: ${obj.value}, ${obj.result}`);
+
+                obj = await cuadradoPromise(5);
+                console.log(`Async Function: ${obj.value}, ${obj.result}`);
+
+                console.log("Fin Async Function");
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        funcionAsincronaDeclarada();
+
+        const funcionAsincronaExpresada = async () => {
+            try {
+                console.log("Inicio Async Function");
+
+                let obj = await cuadradoPromise(6);
+                console.log(`Async Function: ${obj.value}, ${obj.result}`);
+
+                obj = await cuadradoPromise(7);
+                console.log(`Async Function: ${obj.value}, ${obj.result}`);
+
+                obj = await cuadradoPromise(8);
+                console.log(`Async Function: ${obj.value}, ${obj.result}`);
+
+                obj = await cuadradoPromise("9");
+                console.log(`Async Function: ${obj.value}, ${obj.result}`);
+
+                obj = await cuadradoPromise(10);
+                console.log(`Async Function: ${obj.value}, ${obj.result}`);
+
+                console.log("Fin Async Function");
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
+        funcionAsincronaExpresada();
+
+        function cuadradoCallback(value, callback) {
+            setTimeout(() => {
+                callback(value, value * value);
+            }, 0 | (Math.random() * 1000));
+        }
+
+        cuadradoCallback(0, (value, result) => {
+            console.log("Inicia Callback");
+            console.log(`Callback: ${value}, ${result}`);
+            cuadradoCallback(1, (value, result) => {
+                console.log(`Callback: ${value}, ${result}`);
+                cuadradoCallback(2, (value, result) => {
+                    console.log(`Callback: ${value}, ${result}`);
+                    cuadradoCallback(3, (value, result) => {
+                        console.log(`Callback: ${value}, ${result}`);
+                        cuadradoCallback(4, (value, result) => {
+                            console.log(`Callback: ${value}, ${result}`);
+                            cuadradoCallback(5, (value, result) => {
+                                console.log(`Callback: ${value}, ${result}`);
+                                console.log("Fin Callback");
+                                console.log("Callback Hell !!!!!😈🤘");
+                                console.log("http://callbackhell.com/");
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

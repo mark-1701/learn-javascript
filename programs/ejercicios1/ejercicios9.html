@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Ejercicios 9</h1>
+    <script>
+        /*
+        La clase recibirá un objeto al momento de instanciarse con los siguentes datos: id de la película en IMDB, titulo, director, año de estreno, país o países de origen, géneros y calificación en IMBD.
+            - Todos los datos del objeto son obligatorios.
+            - Valida que el id IMDB tenga 9 caracteres, los primeros 2 sean letras y los 
+               7 restantes números.
+            - Valida que el título no rebase los 100 caracteres.
+            - Valida que el director no rebase los 50 caracteres.
+            - Valida que el año de estreno sea un número entero de 4 dígitos.
+            - Valida que el país o paises sea introducidos en forma de arreglo.
+            - Valida que los géneros sean introducidos en forma de arreglo.
+            - Valida que los géneros introducidos esten dentro de los géneros 
+               aceptados*.
+            - Crea un método estático que devuelva los géneros aceptados*.
+            - Valida que la calificación sea un número entre 0 y 10 pudiendo ser 
+              decimal de una posición.
+            - Crea un método que devuelva toda la ficha técnica de la película.
+            - Apartir de un arreglo con la información de 3 películas genera 3 
+
+        instancias de la clase de forma automatizada e imprime la ficha técnica 
+          de cada película.
+
+        * Géneros Aceptados: Action, Adult, Adventure, Animation, Biography, Comedy, Crime, Documentary ,Drama, Family, Fantasy, Film Noir, Game-Show, History, Horror, Musical, Music, Mystery, News, Reality-TV, Romance, Sci-Fi, Short, Sport, Talk-Show, Thriller, War, Western.
+        */
+
+        class Pelicula {
+            constructor(id, titulo, director, anio, pais, genero, calificacion) {
+                this.id = id;
+                this.titulo = titulo;
+                this.director = director;
+                this.anio = anio;
+                this.pais = pais;
+                this.genero = genero;
+                this.calificacion = calificacion;
+            }
+            get getCalificacion() {
+                return this.calificacion;
+            }
+
+            set setCalificacion(calificacion) {
+                this.calificacion = calificacion;
+            }
+
+            static generosPermitidos() {
+                return `Masculino|Femenino|No binario`;
+            }
+
+            toString() {
+                return `ID: ${this.id}, Título: ${this.titulo}, Director: ${this.director}, Año: ${this.anio}, País: ${this.pais}, Género: ${this.genero}, Calificación: ${this.calificacion}`;
+            }
+        }
+
+        const crearObjetoPelicula = (id, titulo, director, anio, pais, genero, calificacion) => {
+
+            let generosPermitidos = [
+                "Action", "Adult", "Adventure", "Animation", "Biography", "Comedy", "Crime",
+                "Documentary", "Drama", "Family", "Fantasy", "Film Noir", "Game-Show",
+                "History", "Horror", "Musical", "Music", "Mystery", "News", "Reality-TV",
+                "Romance", "Sci-Fi", "Short", "Sport", "Talk-Show", "Thriller", "War", "Western"
+            ];
+
+            let generosConcat = generosPermitidos.join("|");
+            const regexGeneros = new RegExp(`^(${generosConcat})$`, 'i');
+
+            //VALIDACIONES
+            if (!/^[a-zA-Z]{2}[0-9]{7}$/i.test(id)) return console.error("ID no permitido");
+            if (!/^.{1,100}$/i.test(titulo)) return console.error("Título no permitido");
+            if (!/^.{1,50}$/i.test(director)) return console.error("Nombre de Director no permitido");
+            if (!/^[0-9]{4}$/i.test(anio)) return console.error("Año no permitido");
+            if (!(pais instanceof Array)) return console.error("Pais debe de ser un array");
+            if (pais.length === 0) return console.error("Sin país contenido");
+            if (!(genero instanceof Array)) return console.error("Género debe de ser un array");
+            for (const element of genero) {
+                if (!regexGeneros.test(element)) return console.error("Género no permitido");
+            }
+            if (!/^([0-9]|10)(\.[0-9]+)?$/i.test(calificacion)) return console.error("Calificación no permitida");
+
+            const pelicula = new Pelicula(id, titulo, director, anio, pais, genero, calificacion)
+            console.warn(pelicula.toString());
+        }
+
+        const crear3peliculas = array => {
+            if (!(array instanceof Array)) return console.error("Debes de insertar un array");
+            if (array.length < 3) return console.error("Debes de insertar al menos 3 películas");
+            array.forEach(element => {
+                const [id, titulo, director, anio, pais, genero, calificacion] = element;
+                crearObjetoPelicula(id, titulo, director, anio, pais, genero, calificacion);
+            });
+        }
+
+        /*
+        const it = new Pelicula(1, "it", "Reaves", 2015, "Usa", "Terror", 8.8);
+        console.warn(it.titulo);
+        console.warn({ nombre: "Marco", edad: 22, correr() { "Hola" } });*/
+
+        crearObjetoPelicula("fg1234567", "9", "quantin", 2009, ["Guatemala", "United States"], ["Adult", "Musical"], 8.8);
+        console.error("-----------------------")
+        crear3peliculas([
+            ["fg1234567", "9", "quanin", 2009, ["Guatemala"], ["Adult"], 8.8],
+            ["fg1234567", "The Shawshank Redemption", "quantin", 1994, ["United States"], ["Musical"], 9.3],
+            ["fg1234567", "Inception", "quantin", 2010, ["United States"], ["Musical"], 8.8],
+            ["fg1234567", "The Godfather", "quantin", 1972, ["United States"], ["Musical"], 9.2]
+        ]);
+    </script>
+
+</body>
+
+</html>

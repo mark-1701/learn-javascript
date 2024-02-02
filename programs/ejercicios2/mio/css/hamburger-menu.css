@@ -1,0 +1,35 @@
+/*ESTILOS DEL SIDEBAR*/
+#sidebar {
+    position: fixed;
+    z-index: 998;
+    top: 0;
+    left: -100vw;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    transition: all .5s ease-out;
+    overflow: scroll;
+}
+
+/*
+#sidebar ul {
+}
+*/
+
+
+.sidebar-link {
+    display: block;
+    padding: 20px;
+    font-size: 23px;
+    color: var(--primary-color);
+    text-align: center;
+}
+
+.sidebar-link:hover {
+    background-color: var(--primary-color);
+    color: #000;
+}
+
+main {
+    width: 100vw;
+}

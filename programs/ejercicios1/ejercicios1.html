@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <h1>Ejercicios 1 JavaScript</h1>
+    <script>
+      /*
+          
+        1) Programa una función que cuente el número de caracteres de una cadena de texto, pe. miFuncion("Hola Mundo") devolverá 10.
+        2) Programa una función que te devuelva el texto recortado según el número de caracteres indicados, pe. miFuncion("Hola Mundo", 4) devolverá "Hola".
+        3) Programa una función que dada una String te devuelva un Array de textos separados por cierto caracter, pe. miFuncion('hola que tal', ' ') devolverá ['hola', 'que', 'tal'].
+        4) Programa una función que repita un texto X veces, pe. miFuncion('Hola Mundo', 3) devolverá Hola Mundo Hola Mundo Hola Mundo.
+        */
+       let mensaje = "Hola Mundo";
+
+      console.log("EJERCICIOS 1 JAVASCRIPT");
+      console.log(
+        `Programa una función que cuente el número de caracteres de una cadena de texto, pe. miFuncion("Hola Mundo") devolverá 10`
+      );
+
+      const miFuncion = entrada => {
+        typeof(entrada) === "string" ? console.warn(`Lenght de la entrada es: ${entrada.length}`) : console.warn("No es un String");
+      };
+
+      miFuncion(mensaje);
+
+      console.log(`2) Programa una función que te devuelva el texto recortado según el número de caracteres indicados, pe. miFuncion("Hola Mundo", 4) devolverá "Hola".`);
+
+      const funcionRecortar = (entrada, numeroRecortardor) => {
+        console.warn(entrada.substring(0, numeroRecortardor));
+      }
+
+      funcionRecortar(mensaje, 4);
+
+      console.log(`3) Programa una función que dada una String te devuelva un Array de textos separados por cierto caracter, pe. miFuncion('hola que tal', ' ') devolverá ['hola', 'que', 'tal'].`);
+
+      const funcionSeparador = (entrada, separador) => {
+        console.warn(entrada.split(separador))
+      }     
+      funcionSeparador(mensaje, " ");
+
+      console.log(`4) Programa una función que repita un texto X veces, pe. miFuncion('Hola Mundo', 3) devolverá Hola Mundo Hola Mundo Hola Mundo.`);
+
+      const funcionRepeticion = (entrada, numeroRepeticiones) => {
+        for (let i = 0; i < numeroRepeticiones; i++) {
+            console.warn(entrada);
+        }
+      }
+      funcionRepeticion(mensaje, 3);
+      
+      console.log("EJERCICIOS 1 JAVASCRIPT JONMIRCHA")
+
+      console.log(
+        `Programa una función que cuente el número de caracteres de una cadena de texto, pe. miFuncion("Hola Mundo") devolverá 10`
+      );
+
+      /*function contarCaracteres(cadena = "") {
+        if (!cadena) {
+          console.warn("No ingresaste ninguna cadena");
+        } else {
+          console.info(`la cadena "${cadena}" tiene ${cadena.length} caracteres.`);
+        }
+      }*/
+
+      const contarCaracteres = (cadena = "") =>
+        (!cadena) 
+        ? console.warn("No ingresaste ninguna cadena")
+        : console.info(`la cadena "${cadena}" tiene ${cadena.length} caracteres.`);
+
+      contarCaracteres();
+      contarCaracteres("Hola Mundo");
+
+      console.log(`2) Programa una función que te devuelva el texto recortado según el número de caracteres indicados, pe. miFuncion("Hola Mundo", 4) devolverá "Hola".`);
+
+      const recortarTexto = (cadena = "", longitud = undefined) =>
+      (!cadena)
+      ? console.warn("No ingresaste una cadena de texto")
+      : (longitud == undefined)
+        ? console.warn("No ingresaste la logitud para recortar el texto")
+        :console.info(cadena.slice(0, longitud));
+
+      recortarTexto("Hola Mundo", 4);
+
+      console.log(`3) Programa una función que dada una String te devuelva un Array de textos separados por cierto caracter, pe. miFuncion('hola que tal', ' ') devolverá ['hola', 'que', 'tal'].`);
+
+      const cadenaAArreglo = (cadena = "", separador = undefined) =>
+      (!cadena)
+      ? console.warn("No ingresaste una cadena de texto")
+      : (separador == undefined)
+        ? console.warn("No ingresaste el caracter separador")
+        :console.info(cadena.split(separador));
+
+      cadenaAArreglo("Hola Mundo", " ");
+
+      console.log(`4) Programa una función que repita un texto X veces, pe. miFuncion('Hola Mundo', 3) devolverá Hola Mundo Hola Mundo Hola Mundo.`);
+
+      const repetirTexto = (texto = "", veces = undefined) => {
+        //codigo más expresivo
+        if (!texto) return console.warn("No ingresaste una cadena de texto");
+
+        if (veces === undefined) return console.warn("No ingresaste el número de veces a repetir el texto");
+
+        if (veces === 0) return console.error("El número de veces no puede ser 0");
+
+        //verificar si el número es negativo
+        if(Math.sign(veces) === -1) return console.error("El número de veces no puede ser negativo");
+
+        //for de una sola línea
+        for (let i = 0; i < veces; i++) console.info(`${texto}, ${i + 1}`);
+      }
+
+      repetirTexto("Hola Mundo", 3);
+      repetirTexto("Hola Mundo", 0);
+      repetirTexto("Hola Mundo", -20);
+      repetirTexto("", 20);
+      repetirTexto("Hola Mundo");
+    </script>
+  </body>
+</html>

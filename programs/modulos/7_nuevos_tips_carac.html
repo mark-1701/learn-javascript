@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Nuevos Tipos y Características</h1>
+    <script>
+      console.log("**************SYMBOLS*****************");
+      //SYMBOLS
+      //Son valores únicos e inmutables que se utilizan principalmente como identificadores para propiedades de objetos. Cada símbolo creado es único, lo que significa que dos símbolos nunca serán iguales aunque tengan el mismo nombre.
+
+      //No se debe instanciar el simbolo. Esto da error: new Symbol()
+      //Es un dato de tipo primitivo
+      let id = Symbol("id");
+      let id2 = Symbol("id");
+
+      console.log(id === id2); // false
+      console.log(id, id2); // Symbol(id) Symbol(id)
+      console.log(typeof id, typeof id2); // symbol symbol
+
+      const NOMBRE = Symbol("nombre");
+      const APELLIDO = Symbol("apellido");
+      const SALUDAR = Symbol("saludar"); //solo son nombres de referencia
+
+      const persona = {
+        [NOMBRE]: "Jon"
+      };
+      console.log(persona);
+      // Symbol(nombre): "Jon"
+
+      // Nuevo Atributo no Symbol
+      persona.NOMBRE = "Jonathan MirCha";
+
+      console.log(persona);
+      // NOMBRE: "Jonathan MirCha"
+      // Symbol(nombre): "Jon"
+
+      console.log(persona.NOMBRE); // Jonathan MirCha
+      console.log(persona[NOMBRE]); // Jon
+
+      // asignar funcion a un symbol
+      persona[SALUDAR] = () => {
+        console.log("Hola");
+      };
+      // ejecutar funcion symbol
+      persona[SALUDAR]();
+
+      persona[APELLIDO] = "Muralles";
+      console.warn(persona);
+      // NOMBRE: "Jonathan MirCha"
+      // Symbol(apellido): "Muralles"
+      // Symbol(nombre): "Jon"
+      // Symbol(saludar): () => { console.log("Hola")
+
+      // solo detecta la propiedad NOMBRE
+      // los simbolos se mantienen privados
+      for (const propiedad in persona) {
+        console.log(propiedad); // NOMBRE
+        console.log(persona[propiedad]); // Jonathan MirCha
+      }
+
+      //imprime los simbolos
+      console.log(Object.getOwnPropertySymbols(persona));
+
+      console.log("***************SETS******************");
+      //SETS
+
+      //En JavaScript, Set es una estructura de datos que te permite almacenar valores únicos, lo que significa que no puede haber duplicados dentro de un Set. Es similar a una lista, pero solo puede contener valores únicos y no tiene un índice o clave asociada con cada elemento.
+
+      const set = new Set([1, 2, 3, 3, 4, 5, true, false, false, {}, {}, "Hola", "hoLa"]);
+      //Quita los duplicados
+      console.log(set);
+      //no se usa lenght, se usa size
+      console.log(set.size);
+
+      const set2 = new Set();
+      //Agregar valores a un set
+      set2.add(1);
+      set2.add(11);
+      console.log(set2);
+
+      //recorrer con forof
+      for (const item of set) {
+        //console.log(item);
+      }
+
+      //recorrer con forEach
+      set2.forEach(element => console.warn(element));
+
+      //devuelve undefined
+      console.log(set[0]);
+
+      //convierte el set (objeto iterable) a un array, y nos va a dejar sacar elementos
+      let arr = Array.from(set);
+      console.log(arr[0]);
+
+      //Método para eliminar valores en un set
+      set.delete("Hola");
+      console.log(set);
+
+      //Método has (comprueba si el valor existe)
+      console.log(set.has(1));
+
+      //Método para limpiar un set
+      set2.clear();
+      console.log(set2);
+
+      console.log("***************MAPS******************");
+      //MAPS
+
+      //Los Map en JavaScript son estructuras de datos que permiten almacenar pares clave-valor donde tanto la clave como el valor pueden ser de cualquier tipo. A diferencia de los Sets, que solo almacenan valores únicos, los Map te permiten asociar un valor con una clave específica.
+
+      const mapa = new Map();
+      mapa.set("nombre", "Jon");
+      mapa.set("apellido", "Mircha");
+      mapa.set("edad", 35);
+
+      console.log(mapa);
+      //Saber cuantos elementos tiene el mapa
+      console.log(mapa.size);
+      //Método para saber si una llave específica existe
+      console.log(mapa.has("nombre"));
+      //Método para imprimir un atributo específico
+      console.log(mapa.get("nombre"));
+      mapa.set("nombre", "Marco");
+      //Método para cambiar un atributo específico
+      console.log(mapa.get("nombre"));
+      //Método para eliminar un atributo específico
+      mapa.delete("apellido");
+
+      //Podemos agregar distintos tipos de llaves
+      mapa.set(19, "diecinueve");
+      mapa.set(false, "falso");
+      mapa.set({}, {});
+      console.log(mapa);
+
+      //Recorrer un mapa
+      for (const [key, value] of mapa) {
+        console.warn(`Llave: ${key}, valor: ${value}`);
+      }
+
+      //Iniciar un mapa
+      const mapa2 = new Map([
+        ["nombre", "kEnAi"],
+        ["edad", "7"],
+        ["animal", "perro"],
+        [null, "nulo"]
+      ]);
+      console.log(mapa2);
+
+      //Guardar los keys en una variable
+      const llavesMapa2 = [...mapa2.keys()];
+      //Guardar valores en una variable
+      const valoresMapa2 = [...mapa2.values()];
+      console.log(llavesMapa2);
+      console.log(valoresMapa2);
+
+      console.log("*********WEAKSETS & WEAKMAPS********");
+      //WEAKSETS & WEAKMAPS
+
+      //Los WeakSets y WeakMaps son estructuras de datos en JavaScript que están diseñadas para almacenar colecciones de objetos de manera similar a los sets y maps, pero con una diferencia clave en cómo manejan las referencias a los objetos.
+
+      /*
+        - Permite que estas referencias debiles se limpien automaticamente o manualmente por el navegador
+        - No se va a poder iterar
+        - No se va a poder ver el size
+        - Los WeakSets no aceptan valores primitivos como elementos, solo objetos.
+        -  Similar a WeakSet, las claves de un WeakMap también deben ser objetos, no se pueden utilizar valores primitivos como claves.
+        */
+
+      //WEAKSETS
+      //-----------------------------------------
+
+      //No se va a poder iniciar la variable, se deben agregar uno en uno
+      //const ws = new WeakSet([1,2,3,4,5,true,false,false,{},{}]);
+
+      const ws = new WeakSet();
+      let valor1 = { valor1: 1 };
+      let valor2 = { valor2: 2 };
+      let valor3 = { valor3: 3 };
+
+      //añadimos elementos al weakset
+      ws.add(valor1);
+      ws.add(valor2);
+      ws.add(valor3);
+
+      console.log(ws);
+
+      //Método has (comprueba si el valor existe)
+      console.log(ws.has(valor1));
+
+      //Método para eliminar valores en un ws
+      ws.delete(valor2);
+      console.log(ws);
+
+      setInterval(() => {
+        //console.log(ws);
+      }, 1000);
+
+      setTimeout(() => {
+        //Se van a eliminar automaticamente las referencias
+        //Detecta el cambio de las referencias
+        (valor1 = null), (valor2 = null), (valor3 = null);
+      }, 5000);
+
+      //WEAKMAPS
+      //-----------------------------------------
+
+      //No se va a poder iniciar la variable de esta manera
+      /*
+        const wm = new WeakMap([
+            ["nombre", "kEnAi"],
+            ["edad", "7"],
+            ["animal", "perro"],
+            [null, "nulo"]
+        ]);*/
+
+      const wm = new WeakMap();
+      let llave1 = {};
+      let llave2 = {};
+      let llave3 = {};
+
+      wm.set(llave1, 1);
+      wm.set(llave2, 2);
+      wm.set(llave3, 2);
+
+      console.log(wm);
+
+      //Método has (comprueba si la llave existe)
+      console.log(wm.has(llave1));
+
+      //Método para obtener el valor de una llave
+      console.log(wm.get(llave1));
+
+      //Método para eliminar valor según la llave
+      wm.delete(llave2);
+      console.log(wm);
+
+      setInterval(() => {
+        //console.log(wm)
+      }, 1000);
+
+      setTimeout(() => {
+        //Se van a elimianr automaticamente las referencias
+        //Detecta el cambio de las referencias
+        llave1 = null;
+        llave2 = null;
+        llave3 = null;
+      }, 5000);
+
+      console.log("*******ITERABLES & ITERATORS********");
+      //ITERABLES & ITERATORS
+
+      const iterable = [1, 2, 3, 4, 5];
+      // Otros objetos iterables
+      //const StringIterable = "Hola Mundo"; //StringIterator
+      //const iterable = new Set{[1,2,3,4,5]}
+      //const iterable = new Map([["nombre", "jon"],["edad",35]])
+
+      //Accedemos al iterador del iterable
+      const iterador = iterable[Symbol.iterator]();
+
+      console.warn(iterador); // Array Iterator {}
+      //devuelve un objeto, value y done
+      //valor y boolean para indicar si se acabaron los elementos
+      console.warn(iterador.next()); // {value: 1, done: false}
+      console.warn(iterador.next()); // {value: 2, done: false}
+      console.warn(iterador.next()); // {value: 3, done: false}
+      console.warn(iterador.next()); // {value: 4, done: false}
+      console.warn(iterador.next()); // {value: 5, done: false}
+      console.warn(iterador.next()); // {value: undefined, done: true}
+
+      //recorrerlo con un while
+      let next = iterador.next();
+      while (!next.done) {
+        console.warn(next.value);
+        next = iterador.next();
+      }
+
+      console.log("*************GENERATORS************");
+      //GENERATORS
+
+      //Los generadores en JavaScript son funciones especiales que pueden ser pausadas y luego reanudadas. Esto permite generar una serie de valores de manera controlada y eficiente
+
+      //convierte el código de una función iterable
+      function* iterable2() {
+        yield "hola";
+        console.log("Hola consola");
+        yield "hola 2";
+        console.log("Seguimos con más intrucciones de nuestro código");
+        yield "hola 3";
+        yield "hola 4";
+      }
+
+      let iterador2 = iterable2();
+      console.warn(iterador2.next()); // {value: 'hola', done: false}
+      console.warn(iterador2.next()); // Hola consola
+      console.warn(iterador2.next()); // {value: 'hola 2', done: false}
+      console.warn(iterador2.next()); // {value: 'hola 4', done: false}
+      console.warn(iterador2.next()); // {value: undefined, done: true}
+
+      iterador2 = iterable2();
+      // imprimir los elementos con un for...of
+      for (const yield of iterador2) {
+        console.warn(yield);
+        // hola
+        // hola consola
+        // hola 2
+        // hola 4
+      }
+
+      //Guardar los iterables en un array
+      const arr2 = [...iterable2()];
+      console.log(arr2); // ['hola', 'hola 2', 'hola 3', 'hola 4']
+
+      function cuadrado(valor) {
+        setTimeout(() => {
+          console.log({ valor, resultado: valor * valor });
+        }, Math.random() * 1000);
+      }
+
+      //Este generador tiene funciónes, se pueden generar asíncronias
+      //Asíncronia no bloqueante
+      function* generador() {
+        console.log(`INICIA GENERATOR`);
+        yield cuadrado(0);
+        yield cuadrado(1);
+        yield cuadrado(2);
+        yield cuadrado(3);
+        yield cuadrado(4);
+        yield cuadrado(5);
+        console.log(`TERMINA GENERATOR`);
+      }
+
+      let gen = generador();
+      for (const yield of gen) {
+        console.log(yield);
+      }
+
+      console.log("**************PROXIES*************");
+      //PROXIES
+
+      //Proxy es un objeto que permite la creación de un "intermediario" o "agente" que controla el acceso a otro objeto (llamado "objetivo"). Este agente Proxy puede interceptar y personalizar la manera en que ciertas operaciones son realizadas en el objeto objetivo, como la lectura, escritura, entre otros.
+
+      //Los Proxies se utilizan para crear un control más fino sobre el comportamiento de los objetos, permitiendo implementar lógica personalizada en las operaciones sobre estos objetos. Al utilizar un Proxy, puedes definir comportamientos específicos para ciertas operaciones sin necesidad de modificar directamente el objeto original.
+
+      const persona2 = {
+        nombre: "",
+        apellido: "",
+        edad: 0
+      };
+
+      const manejador = {
+        set(obj, prop, valor) {
+          // busca en el objeto la listra de atributos, y busca el atributo que estamos introduciendo (si no se encuentra devuelve un -1)
+          if (Object.keys(obj).indexOf(prop) === -1) {
+            return console.error(`La propiedad "${prop}" no existe en el objeto persona.`);
+          }
+
+          if ((prop === "nombre" || prop === "apellido") && !/^[a-zA-Z\s]+$/g.test(valor)) {
+            return console.error(`La propiedad ${prop} sólo acepta letras y espacios en blanco.`);
+          }
+
+          obj[prop] = valor;
+        }
+      };
+
+      const marco = new Proxy(persona2, manejador);
+
+      marco.nombre = "marco";
+      marco.apellido = "muralles";
+      marco.edad = 22;
+      marco.twitter = "@marco"; // La propiedad "twitter" no existe en el objeto persona.
+      console.log(marco); // Proxy(Object) {nombre: 'marco', apellido: 'muralles', edad: 22}
+
+      console.log("*PROPIEDADES DINÁMICAS DE OBJETOS*");
+      //PROPIEDADES DINÁMICAS DE OBJETOS
+
+      const objUsuarios = {
+        propiedad: "valor",
+        // crear propiedades dinámicas dentro del objeto
+        [`id_${Math.round(Math.random() * 100 + 5)}`]: "valor aleatorio"
+      };
+      const usuarios = ["Jon", "Irma", "Miguel", "Kala"];
+
+      usuarios.forEach((usuario, index) => (objUsuarios[`id_${usuario}`] = usuario));
+
+      console.log(objUsuarios);
+      //{id_Jon: 'Jon', id_Irma: 'Irma', id_Miguel: 'Miguel', id_Kala: 'Kala'}
+    </script>
+  </body>
+</html>

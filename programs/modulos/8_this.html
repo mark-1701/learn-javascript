@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>This en javascript</h1>
+    <script>
+        console.log("***************THIS***************");
+        // "use strict";
+        //THIS EN JAVASCRIPT
+
+        //apunta al objeto window
+        console.log(this);
+
+        this.nombre = "Contexto Global";
+        console.log(this.nombre);
+
+        function imprimir() {
+            console.log(this.nombre);
+        }
+
+        //imprime "Contexto Global"
+        imprimir();
+
+        const obj = {
+            nombre: "Contexto objeto",
+            imprimir: function () {
+                console.log(this.nombre);
+            }
+        }
+
+        //imprime Contexto objeto
+        obj.imprimir();
+
+        const obj2 = {
+            nombre: "Contexto Objeto 2",
+            imprimir
+        }
+
+        //imprime Contexto objeto 2
+        obj2.imprimir();
+
+        const obj3 = {
+            nombre: "Contexto objeto 3",
+            imprimir: () => {
+                console.log(this.nombre);
+            }
+        }
+
+        //En el caso de las arrow functions (() => {}), a diferencia de las funciones normales, no tienen su propio contexto this. En su lugar, toman prestado el contexto this del ámbito en el que fueron creadas (el ámbito léxico).
+        //En nodejs no se recomienda usar arrow functions
+
+        //Imprime Contexto Global
+        obj3.imprimir();
+
+        //Función como constructora Persona
+        function Persona(nombre) {
+            this.nombre = nombre;
+            //return console.log(this.nombre);
+
+            //closure
+
+            //crea un nuevo contexto
+            //lee el contexto global
+            /*return function() {
+                console.log(this.nombre); 
+            }*/
+            //la diferencia radica en el donde se llama a la función
+            //es porque se llama en la instancia
+
+            //retorna marco
+            return () => console.log(this.nombre);
+        }
+
+        let jon = new Persona("marco");
+        jon();
+
+        console.log("********CALL, APPLY, BIND*********");
+        //CALL, APPLY, BIND
+
+        this.lugar = "Contexto Global";
+
+        function saludar(saludo, aQuien) {
+            console.log(`${saludo} ${aQuien} desde el ${this.lugar}`);
+        }
+
+        /*
+        let saludar2 = () => {
+            this.lugar = "hola"
+            console.log(`${this.lugar}`);
+        }*/
+
+        saludar()
+        //saludar2()
+
+        const obj4 = {
+            lugar: "Contexto Objeto"
+        }
+
+        //Le mandamos el contexto del objeto
+
+        //imprime Contexto Objeto
+        saludar.call(obj4, "hi", "Jon");
+        //imprime Contexto Global 
+        saludar.call(null, "Hi", "Jon");
+        //imprime Contexto Global 
+        saludar.call(this, "Hi", "Jon");
+        //funciona igual pero cambia que le enviamos un arreglo
+        saludar.apply(obj4, ["Adios", "Mircha"]);
+
+        const persona = {
+            nombre: "jon",
+            saludar: function () {
+                console.log(`Hola ${this.nombre}`);
+            }
+        }
+
+        persona.saludar();
+
+        const otraPersona = {
+            //devuelve undefined
+            //saludar: persona.saludar
+
+            //enlaza el contexto de persona
+            saludar: persona.saludar.bind(persona)
+        }
+
+
+        otraPersona.saludar()
+
+        /*
+        La diferencia principal entre las funciones normales y las funciones flecha en relación con los objetos y las funciones constructoras se centra en cómo manejan el valor de this.
+
+        Funciones Normales:
+
+        Objetos: Cuando una función normal se define como un método de un objeto, el this dentro de esa función hace referencia al objeto que contiene el método. Por ejemplo:
+
+        const objeto = {
+            valor: "Hola",
+            imprimir: function() {
+                console.log(this.valor);
+            }
+        };
+        objeto.imprimir(); // Imprime: Hola
+
+        Funciones Constructoras: Si se utiliza una función normal dentro de un constructor, el this dependerá de cómo se invoque la función que retorna el constructor y puede apuntar al objeto global si no se maneja adecuadamente. Por ejemplo:
+
+        function Persona(nombre) {
+            this.nombre = nombre;
+            return function() {
+                console.log(this.nombre);
+            };
+        }
+        let jon = new Persona("Marco");
+        jon(); // Puede imprimir 'undefined' o apuntar al objeto global dependiendo del entorno.
+
+        Funciones Flecha:
+
+        Objetos: En el contexto de un objeto, una función flecha no tiene su propio this, sino que hereda el this del contexto en el que fue definida. Por eso, si una función flecha se encuentra dentro de un objeto, sigue haciendo referencia al this del objeto circundante. Por ejemplo:
+
+        const objeto = {
+            valor: "Hola",
+            imprimir: () => {
+                console.log(this.valor);
+            }
+        };
+        objeto.imprimir(); // Imprime: undefined (ya que this se refiere al contexto global)
+
+        Funciones Constructoras: Si utilizas una función flecha para retornar desde un constructor, la función flecha mantendrá el contexto léxico de donde fue creada, apuntando al contexto en el que se definió la función flecha (no al contexto global). Por ejemplo:
+
+        function Persona(nombre) {
+            this.nombre = nombre;
+            return () => {
+                console.log(this.nombre);
+            };
+        }
+        let jon = new Persona("Marco");
+        jon(); // Imprime: Marco (this apunta al contexto de la instancia de Persona)
+
+        En resumen, las funciones normales manejan this dependiendo de cómo son invocadas y pueden variar entre objetos y funciones constructoras, mientras que las funciones flecha mantienen el contexto léxico donde fueron creadas, lo que suele ser útil y predecible en la programación con JavaScript.
+        */
+
+    </script>
+</body>
+
+</html>

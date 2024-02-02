@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&family=Roboto:wght@100;400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/hamburgers.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/audio-clock.css">
+    <!-- <link rel="stylesheet" href="css/aside-menu.css"> -->
+    <!-- <link rel="stylesheet" href="css/hamburger-menu.css"> -->
+    <link rel="stylesheet" href="" id="menu-styles">
+    <title>Ejercicios 2</title>
+</head>
+
+<body>
+    <h1 class="title">EJERCICIOS DEL DOM</h1>
+    <section id="sidebar">
+        <ul>
+            <li class="item"><a href="#seccion1" class="sidebar-link">Alarma y Despertador</a></li>
+            <li class="item"><a href="#seccion2" class="sidebar-link">Atajos de Teclado</a></li>
+            <li class="item"><a href="#seccion3" class="sidebar-link">countdown</a></li>
+            <li class="item"><a href="#seccion4" class="sidebar-link">Responsive Design</a></li>
+            <li class="item"><a href="#seccion5" class="sidebar-link">Responsive Tester</a></li>
+            <li class="item"><a href="#seccion6" class="sidebar-link">User Agent</a></li>
+            <li class="item"><a href="#seccion7" class="sidebar-link">WebCam Access</a></li>
+            <li class="item"><a href="#seccion8" class="sidebar-link">Geolocalización</a></li>
+            <li class="item"><a href="#seccion9" class="sidebar-link">Filtro de Búsqueda</a></li>
+            <li class="item"><a href="#seccion10" class="sidebar-link">Sorteo de Lenguajes</a></li>
+            <li class="item"><a href="#seccion11" class="sidebar-link">Responsive Slider</a></li>
+            <li class="item"><a href="#seccion12" class="sidebar-link">ScrollSpy Intersection Observer</a></li>
+            <li class="item"><a href="#seccion13" class="sidebar-link">Vídeo Inteligente</a></li>
+            <li class="item"><a href="#seccion14" class="sidebar-link">Validación de formularios</a></li>
+            <li class="item"><a href="#seccion15" class="sidebar-link">Narrador (lector de voz)</a></li>
+        </ul>
+    </section>
+
+    <button id="theme-color-btn" class="round-btn">
+        <span class="material-symbols-outlined">
+            dark_mode
+        </span>
+    </button>
+    <div class="buttons">
+        <button id="button-up" class="round-btn">&#11014;</button>
+        <button id="" class="round-btn hamburger hamburger--collapse" type="button">
+            <span class="hamburger-box">
+                <span class="hamburger-inner"></span>
+            </span>
+        </button>
+    </div>
+
+    <main>
+        <section id="seccion1" class="section">
+            <h2>Sección 1</h2><br>
+            <h3>Control de hora y alarma</h3><br>
+            <p id="time"></p><br>
+            <div id="audio-control-card">
+                <button class="audio-btn" id="play-btn">
+                    <span class="material-symbols-outlined">play_arrow</span>
+                </button>
+                <button class="audio-btn" id="pause-btn">
+                    <span class="material-symbols-outlined">pause</span>
+                </button>
+                <button class="audio-btn" id="play-alarm-btn">
+                    <span class="material-symbols-outlined">notifications_active</span>
+                </button>
+                <button class="audio-btn" id="pause-alarm-btn">
+                    <span class="material-symbols-outlined">notifications_off</span>
+                </button>
+            </div>
+        </section>
+        <section id="seccion2" class="section">
+            <h2>Atajos de Teclado</h2><br>
+            <canvas id="newCanvas" width="900px" height="400px"></canvas>
+        </section>
+        <section id="seccion3" class="section">
+            <h2>countdown</h2><br>
+            <button id="countdownBtn">iniciar</button> <button id="stop-countdown-btn">detener</button><br><br>
+            <p id="countdown-label"></p>
+        </section>
+        <section id="seccion4" class="section">
+            <h2>Resonsive Design</h2>
+            <!-- <iframe id="youtube-link" width="460" height="215" src="https://www.youtube.com/embed/6IwUl-4pAzc?si=C54srA6HXKp6b6YY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe><br><br>
+            <img class="img" src="https://i.pinimg.com/564x/62/13/56/621356e50e375265c702e34556db7bcb.jpg" alt="Toyota EA86" srcset="" width="300"> -->
+            <div id="youtube"></div>
+            <div id="gmaps"></div>
+        </section>
+        <section id="seccion5" class="section">
+            <h2>Responsive Tester</h2><br>
+            <form id="responsive-tester-form" action="" method="get">
+                <label for="window-link">Link:</label><br>
+                <input type="text" id="window-link" name="window-link"><br><br>
+
+                <label for="window-with">Ancho de Ventana:</label><br>
+                <input type="text" id="window-with" name="window-with"><br><br>
+
+                <label for="window-height">Alto de Ventana:</label><br>
+                <input type="text" id="window-height" name="window-height"><br><br>
+
+                <input type="submit" value="Enviar">
+            </form>
+        </section>
+        <section id="seccion6" class="section">
+            <h2>User Agent</h2>
+            <div id="user-device"></div>
+        </section>
+        <section id="seccion7" class="section">
+            <h2>WebCam Access</h2>
+            <video src=""></video>
+            <br><br>
+            <button id="play-video">play</button>
+            <button id="pause-video">pausar</button>
+        </section>
+        <section id="seccion8" class="section">
+            <h2>Geolocalización</h2><br>
+            <p>Tu posición actual es:</p><br>
+            <p id="latitude-label">latitud: </p>
+            <p id="longitude-label">longitud: </p>
+            <p id="precision-label">Precisión: </p><br>
+            <a href="" id="google-maps-link" target="_blank"></a>
+        </section>
+        <section id="seccion9" class="section">
+            <h2>Filtro de Búsqueda</h2>
+            <input type="text" name="search-image" id="search-image">
+            <div class="cards">
+                <!-- <figure class="card">
+                    <img src="https://picsum.photos/id/1/200/200" alt="Tech" srcset="">
+                    <figcaption>Tech</figcaption>
+                </figure>
+                <figure class="card">
+                    <img src="https://picsum.photos/id/237/200/200" alt="Animals" srcset="">
+                    <figcaption>Animals</figcaption>
+                </figure>
+                <figure class="card">
+                    <img src="https://picsum.photos/id/65/200/200" alt="People" srcset="">
+                    <figcaption>People</figcaption>
+                </figure>
+                <figure class="card">
+                    <img src="https://picsum.photos/id/101/200/200" alt="Arch" srcset="">
+                    <figcaption>Arch</figcaption>
+                </figure>
+                <figure class="card">
+                    <img src="https://picsum.photos/id/10/200/200" alt="Natural" srcset="">
+                    <figcaption>Natural</figcaption>
+                </figure> -->
+            </div>
+        </section>
+        <section id="seccion10" class="section">
+            <h2>Sorteo de Lenguajes</h2><br>
+            <ul id="languagueList">
+                <li>Python</li>
+                <li>C</li>
+                <li>Java</li>
+                <li>C#</li>
+                <li>JavaScript</li>
+                <li>PHP</li>
+                <li>Visual Basic</li>
+                <li>SQL</li>
+            </ul><br>
+            <button id="raffle-btn">Rifar Lenguaje</button>
+        </section>
+        <section id="seccion11" class="section">
+            <h2>Responsive Slider</h2>
+            <div id="responsive-slider-container">
+                <button id="forward">
+                    <span class="material-symbols-outlined">
+                        arrow_forward
+                    </span>
+                </button>
+                <button id="backward">
+                    <span class="material-symbols-outlined">
+                        arrow_back
+                    </span>
+                </button>
+                <div id="responsive-slider">
+                    <div class="image-container" image-number="1">
+                        <img src="assets/img/img1.jpg" alt="" srcset="">
+                    </div>
+                    <div class="image-container" image-number="1">
+                        <img src="assets/img/img2.jpg" alt="" srcset="">
+                    </div>
+                    <div class="image-container" image-number="1">
+                        <img src="assets/img/img3.jpg" alt="" srcset="">
+                    </div>
+                    <div class="image-container" image-number="1">
+                        <img src="assets/img/img4.jpg" alt="" srcset="">
+                    </div>
+                    <div class="image-container" image-number="1">
+                        <img src="assets/img/img5.jpg" alt="" srcset="">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="seccion12" class="section">
+            <h2 class="mi-elemento">ScrollSpy Intersection Observer</h2>
+        </section>
+        <section id="seccion13" class="section">
+            <h2>Vídeo Inteligente</h2>
+            <video id="video" controls>
+                <source src="assets/video/null-moon-8bits.mp4" type="video/mp4">
+                Tu navegador no soporta la reproducción de videos.
+              </video>              
+        </section>
+        <section id="seccion14" class="section">
+            <h2>Validación de formularios</h2><br>
+            <form action="" method="get" class="new-form" id="new-form">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required><br>
+                <div class="form-alert">Nombre incorrecto</div><br>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required><br>
+                <div class="form-alert">Email incorrecto</div><br>
+                
+                <label for="asunto">Asunto:</label>
+                <input type="text" id="asunto" name="asunto" required><br>
+                <div class="form-alert">Asunto incorrecto</div><br>
+                
+                <label for="comentario">Comentario:</label>
+                <textarea id="comentario" name="comentario" required></textarea><br>
+                <div class="form-alert">Comentario incorrecto</div><br>
+                
+                <input type="submit" value="Enviar">
+              </form>
+        </section>
+        <section id="seccion15" class="section">
+            <h2>Narrador (Lector de voz)</h2>
+
+            <form action="" method="get" class="new-form" id="voice-reader-form">
+                <label for="voices">Lenguajes Disponibles:</label>
+                <select name="voices" id="voices">
+                </select><br><br>
+                <textarea name="text" id="text" required></textarea><br><br>
+                <input type="submit" value="Procesar">
+            </form>
+
+
+            <!-- Prácticas independientes sobre formularios -->
+            <!-- <form action="" method="get" >
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre"><br><br>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email"><br><br>
+                
+                <label for="mensaje">Mensaje:</label>
+                <textarea id="mensaje" name="mensaje" rows="4" cols="30"></textarea><br><br>
+                
+                <select id="colores" name="colores">
+                    <option value="rojo">Rojo</option>
+                    <option value="verde">Verde</option>
+                    <option value="azul">Azul</option>
+                    <option value="amarillo">Amarillo</option>
+                </select>
+                <br>
+
+                <label for="opcion1">
+                    <input type="checkbox" id="opcion1" name="opcion1" value="opcion1">
+                    Opción 1
+                </label><br>
+                
+                <label for="opcion2">
+                    <input type="checkbox" id="opcion2" name="opcion2" value="opcion2">
+                    Opción 2
+                </label><br>
+                
+                <label for="opcion3">
+                    <input type="checkbox" id="opcion3" name="opcion3" value="opcion3">
+                    Opción 3
+                </label><br><br>
+
+                <label for="opcion1">
+                    <input type="radio" id="opcion1" name="opcion" value="opcion1">
+                    Opción 1
+                </label><br>
+                
+                <label for="opcion2">
+                    <input type="radio" id="opcion2" name="opcion" value="opcion2">
+                    Opción 2
+                </label><br>
+                
+                <label for="opcion3">
+                    <input type="radio" id="opcion3" name="opcion" value="opcion3">
+                    Opción 3
+                </label><br>
+
+                <input type="submit" value="Enviar">
+            </form> -->
+        </section>
+
+        <div class="connection-information">estado conexión</div>
+
+    </main>
+    <script src="js/index_dom.js" type="module"></script>
+</body>
+
+</html>

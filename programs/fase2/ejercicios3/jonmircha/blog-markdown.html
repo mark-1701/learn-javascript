@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog con Markdown y Showdown</title>
+  <style>
+    img {
+      width: 300px;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 3%;
+    }
+  </style>
+</head>
+<body>
+  <h1>Blog con Markdown y Showdown</h1>
+  <main></main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js" integrity="sha512-LhccdVNGe2QMEfI3x4DVV3ckMRe36TfydKss6mJpdHjNFiV07dFpS2xzeZedptKZrwxfICJpez09iNioiSZ3hA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+    const d = document,
+    $main = d.querySelector("main"); 
+
+    fetch("assets/camille-jansen.md")
+    .then(res => res.ok ? res.text() : Promise.reject(res))
+    .then(text => {
+      console.log(text); 
+      $main.innerHTML = new showdown.Converter().makeHtml(text); 
+    })
+    .catch(err => {
+      console.log(err); 
+      let message = err.statusText || "Ocurrió un error"; 
+      $main.innerHTML = `Error ${err.status}: ${message}`; 
+    })
+  </script>
+</body>
+</html>

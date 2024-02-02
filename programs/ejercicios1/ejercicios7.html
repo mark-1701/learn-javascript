@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Ejercicios 7</h1>
+    <script>
+        /*
+          21) Programa una función que dado un array numérico devuelve otro array con los números elevados al cuadrado, pe. mi_funcion([1, 4, 5]) devolverá [1, 16, 25].
+          22) Programa una función que dado un array devuelva el número mas alto y el más bajo de dicho array, pe. miFuncion([1, 4, 5, 99, -60]) devolverá [99, -60].
+          23) Programa una función que dado un array de números devuelva un objeto con 2 arreglos en el primero almacena los números pares y en el segundo los impares, pe. miFuncion([1,2,3,4,5,6,7,8,9,0]) devolverá {pares: [2,4,6,8,0], impares: [1,3,5,7,9]}.
+          */
+
+        console.log("EJERCICIOS 7 JAVASCRIPT");
+        console.log(
+            `21) Programa una función que dado un array numérico devuelve otro array con los números elevados al cuadrado, pe. mi_funcion([1, 4, 5]) devolverá [1, 16, 25].`
+        );
+
+        const arregloPotencia = (arreglo) => {
+            for (let i = 0; i < arreglo1.length; i++) {
+                let numeroElevado = Math.pow(i + 1, 2);
+                arreglo1[i] = numeroElevado;
+            }
+            arreglo.forEach((element, index) => {
+                console.warn(element);
+            });
+        };
+
+        let arreglo1 = new Array(5);
+        arregloPotencia(arreglo1);
+
+        console.log(
+            `22) Programa una función que dado un array devuelva el número mas alto y el más bajo de dicho array, pe. miFuncion([1, 4, 5, 99, -60]) devolverá [99, -60].`
+        );
+
+        const arregloMenorMayor = (arreglo) => {
+            let menor = arreglo[0];
+            let mayor = arreglo[0];
+
+            arreglo.forEach((element, index) => {
+                if (element > mayor) mayor = element;
+                if (element < menor) menor = element;
+            });
+
+            console.warn(
+                `\tEl número menor es: ${menor} \n \tEl número mayor es: ${mayor}`
+            );
+        }
+
+        let arreglo2 = new Array(10);
+        for (let i = 0; i < arreglo2.length; i++) {
+            arreglo2[i] = Math.floor(Math.random() * 100);
+        }
+        arregloMenorMayor(arreglo2);
+
+        console.log(
+            `23) Programa una función que dado un array de números devuelva un objeto con 2 arreglos en el primero almacena los números pares y en el segundo los impares, pe. miFuncion([1,2,3,4,5,6,7,8,9,0]) devolverá {pares: [2,4,6,8,0], impares: [1,3,5,7,9]}.`
+        );
+
+        const arregloParesImpares = (arreglo = undefined) => {
+            if (arreglo == undefined) return console.error("Debes de enviar un Array");
+
+            if (!(arreglo instanceof Array)) return console.error("Solo se aceptan Arrays");
+
+
+            let pares = new Array();
+            let impares = new Array();
+
+            arreglo.forEach((element, index) => {
+                ((element % 2) == 0)
+                ? pares.push(element)
+                : impares.push(element); 
+            });
+
+            let objeto = {pares, impares};
+
+            //const numerosPares = numeros.filter(numero => numero % 2 === 0);
+
+            return console.warn(objeto);
+        }
+
+        let arreglo3 = new Array(10);
+        for (let i = 0; i < arreglo3.length; i++) {
+            arreglo3[i] = i + 1;
+        }
+        arregloParesImpares(arreglo3);
+
+        console.log(`------------------------------------------`);
+        console.log(`EJERCICIOS 7 JAVASCRIPT JONMIRCHA`);
+        console.log(
+            `21) Programa una función que dado un array numérico devuelve otro array con los números elevados al cuadrado, pe. mi_funcion([1, 4, 5]) devolverá [1, 16, 25].`
+        );
+        const devolverCuadrados = (arr = undefined) => {
+            if (arr === undefined) return console.log("No ingresaste un arreglo de números");
+
+            if (!(arr instanceof Array)) return console.error("Solo se aceptan Arrays");
+
+            if (arr.length === 0) return console.error("El arreglo esta vacío"); 
+
+            for (const num of arr) {
+                if(typeof num !== "number") return console.error("Solo puedes ingresar numeros");
+            }
+
+            // Map: crea un nuevo array aplicando una función a cada elemento del array original
+            const newArr = arr.map(el => el * el); 
+
+            return console.warn(`Arreglo original: ${arr},\nArreglo elevado al cuadrado: ${newArr}`)
+        }
+
+        devolverCuadrados();
+        devolverCuadrados(true);
+        devolverCuadrados({});
+        devolverCuadrados([]);
+        devolverCuadrados([1, 2, "3"]); 
+        devolverCuadrados([1, 2, 3]); 
+
+        console.log(
+            `22) Programa una función que dado un array devuelva el número mas alto y el más bajo de dicho array, pe. miFuncion([1, 4, 5, 99, -60]) devolverá [99, -60].`
+        );
+
+        const arrayMinMax = (arr = undefined) => {
+            if (arr === undefined) return console.log("No ingresaste un arreglo de números");
+
+            if (!(arr instanceof Array)) return console.error("Solo se aceptan Arrays");
+
+            if (arr.length === 0) return console.error("El arreglo esta vacío"); 
+
+            for (const num of arr) {
+                if(typeof num !== "number") return console.error("Solo puedes ingresar numeros");
+            }
+
+            return console.warn(`Arreglo original: ${arr}\nValor mayor: ${Math.max(...arr)}\nValor menor: ${Math.min(...arr)}`);
+            
+        }
+
+        arrayMinMax(); 
+        arrayMinMax(false);
+        arrayMinMax([]);
+        arrayMinMax([1, 2, true]); 
+        arrayMinMax([1,2,3,4]);
+
+        console.log(
+            `23) Programa una función que dado un array de números devuelva un objeto con 2 arreglos en el primero almacena los números pares y en el segundo los impares, pe. miFuncion([1,2,3,4,5,6,7,8,9,0]) devolverá {pares: [2,4,6,8,0], impares: [1,3,5,7,9]}.`
+        );
+
+        const separarParesImpares = (arr = undefined) => {
+            if (arr === undefined) return console.log("No ingresaste un arreglo de números");
+
+            if (!(arr instanceof Array)) return console.error("Solo se aceptan Arrays");
+
+            if (arr.length === 0) return console.error("El arreglo esta vacío"); 
+
+            for (const num of arr) {
+                if(typeof num !== "number") return console.error("Solo puedes ingresar numeros");
+            }
+
+            // Filter: crea un nuevo array con elementos que pasan una condición
+            return console.warn ({
+                pares: arr.filter(num => num % 2 === 0),
+                impares: arr.filter(num => num % 2 === 1)
+            })
+
+        }
+
+        separarParesImpares();
+        separarParesImpares(""); 
+        separarParesImpares([]); 
+        separarParesImpares([1, 2, "j"]); 
+        separarParesImpares([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]); 
+    </script>
+</body>
+
+</html>

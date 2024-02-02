@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Song Searcher API</title>
+    <style>
+      html {
+        box-sizing: border-box;
+        font-family: sans-serif;
+      }
+
+      *,
+      *:before,
+      *:after {
+        box-sizing: inherit;
+        margin: 0px;
+        padding: 6px;
+      }
+
+      .form {
+        display: block;
+        text-align: center;
+      }
+
+      .information-view {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      img {
+        width: 60%;
+        height: auto;
+        align-self: center;
+      }
+
+      .artist {
+        padding: 5%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .lyrics {
+        padding: 5%;
+      }
+
+      .none {
+        display: none;
+      }
+
+      span {
+        color: #fff;
+        background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="" method="get" class="form">
+      <input type="text" name="artist" required /> <br/><br/>
+      <input type="text" name="song" required /> <br/><br/>
+      <input type="submit" value="Search" /> <br/><br/>
+      <span class="none alert"></span>
+    </form>
+    <section class="information-view">
+      <div class="artist"><h2>Artista</h2></div>
+      <div class="lyrics">
+        <h2>Letra</h2>
+        <pre></pre>
+      </div>
+    </section>
+
+    <template class="artist-template">
+      <h2>Artista</h2>
+      <img src="" />
+      <p class="name"></p>
+      <p class="followers"></p>
+      <p class="popularity"></p>
+      <ul></ul>
+      <a href="">Link Spotify</a>
+    </template>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.5/axios.min.js"
+      integrity="sha512-TjBzDQIDnc6pWyeM1bhMnDxtWH0QpOXMcVooglXrali/Tj7W569/wd4E8EDjk1CwOAOPSJon1VfcEt1BI4xIrA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      const d = document,
+        $form = d.querySelector("form"),
+        $informationView = d.querySelector(".information-view"),
+        $artist = d.querySelector(".artist"),
+        $lyrics = d.querySelector(".lyrics"),
+        $artistTemplate = d.querySelector(".artist-template").content,
+        $alert = d.querySelector(".alert");
+
+      d.addEventListener("DOMContentLoaded", e => {});
+
+      d.addEventListener("submit", async e => {
+        e.preventDefault();
+        const options1 = {
+          headers: {
+            Authorization:
+              "Bearer BQAr86_Wlml24UqRSxmN5n2ub0429Arvr2821xGz5cwfUqiFsi1CwbRIs8JYNr7LS7egA4hzwq72SHp9_K3td4rc62oqRy23Oln10lDXxsSqE9lnpbQ"
+          },
+          params: {
+            q: $form.artist.value,
+            type: "artist"
+          }
+        };
+
+        const options2 = {
+          headers: {
+            ContentType: "application/json"
+          }
+        };
+
+        Promise.all([
+          axios("https://api.spotify.com/v1/search", options1),
+          axios(`https://api.lyrics.ovh/v1/${$form.artist.value}/${$form.song.value}`, options2)
+        ])
+          .then(responses => {
+            console.log(responses);
+
+            const artist = responses[0].data.artists.items[0];
+            const lyrics = responses[1].data;
+            $alert.classList.add("none");
+
+            //Tarjeta de Artista
+            //**** Utilizo la tecnica de los templates****
+            $artist.innerHTML = "";
+            $artistTemplate.querySelector("img").src = `${artist.images[0].url}`;
+            $artistTemplate.querySelector(".name").innerHTML = `<p><strong>Nombre:</strong> ${artist.name}</p>`;
+            $artistTemplate.querySelector(".followers").innerHTML = `<p><strong>followers:</strong> ${artist.followers.total}</p>`;
+            $artistTemplate.querySelector(".popularity").innerHTML = `<p><strong>popularity:</strong> ${artist.popularity}</p>`;
+            $artistTemplate.querySelector("a").href = artist.external_urls.spotify;
+            $artistTemplate.querySelector("ul").innerHTML = "";
+            artist.genres.forEach(el => {
+              $artistTemplate.querySelector("ul").innerHTML += `<li>${el}</li>`;
+            });
+            const $clone = d.importNode($artistTemplate, true);
+            $artist.appendChild($clone);
+
+            //Tarjeta de Letra
+            //**** Solo reemplazo el contenido interno del pre****
+            $lyrics.querySelector("pre").innerHTML = `<pre>${lyrics.lyrics}</pre>`;
+          })
+          .catch(err => {
+            console.log(err);
+            let message = err.statusText || "Ocurrió un error en alguno de los dos campos";
+            // $form.insertAdjacentHTML("beforeend", `<p>Error ${err.status}: ${message}</p>`);
+            // alert(`Error ${err.status}: ${message}`);
+            $alert.innerHTML = `Error ${err.status}: ${message}`;
+            $alert.classList.remove("none");
+          });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <h1>Estructuras de Control</h1>
+    <script>
+      console.log(`
+----------------------------------------
+ESTRUCTURAS DE CONTROL
+----------------------------------------`);
+
+      console.log("********TIPOS DE OPERADORES*********");
+      //TIPOS DE OPERADORES
+      //ARITMETICOS +-*/%()
+
+      let a = 5 + 5 - 10 * 3;
+      let modulo = 5 % 2;
+
+      console.log(a);
+      console.log(modulo);
+
+      //RELACIONALES
+      //<,>,>=, <=, ==, ===, !=, !==
+      console.log(8 > 9);
+      console.log(9 > 8);
+      console.log(8 >= 9);
+      console.log(7 <= 7);
+
+      /*
+            = 1 igual es asignación de variable
+            == 2 igual es comparación de valores
+            === 3 igual es comparación de tipo de dato y valor
+        */
+
+      console.log(7 == 7);
+      console.log("7" == 7);
+      //Se considera una buena práctica
+      console.log("7" === 7);
+      console.log(0 == false);
+
+      //INCREMENTO Y DECREMENTO
+      let i = 1;
+      i = i + 2;
+      i += 3;
+      i -= 3;
+      i /= 1;
+      i *= 2;
+
+      //OPERADOR UNARIO
+      i++;
+      i--;
+      ++i;
+      --i;
+      console.log(i);
+
+      //OPERACORES LOGICOS
+      /*
+            ! - Not     
+            Niega, es decir lo que es verdadero lo vuelve falso y viseversa
+
+            || - Or
+            Cuando tengo 2 o más condiciones, con que una se cumpla, es decir sea verdadera, el OR validara
+
+            && - And
+            Cuando tengo 2 o más condiciones, todas tiene que cumplirse, es decir ser verdaderas, para que AND se valide
+        */
+
+      console.log(!true);
+      console.log(!false);
+      console.log(9 === 9 || "9" === 9);
+      console.log(9 === 9 && "9" === 9);
+      console.log(9 === 9 && "9" === 9);
+
+      console.log("***********Condicionales************");
+      //CONDICIONALES
+      let edad = 17;
+
+      if (edad >= 18) {
+        console.log("Eres mayor de edad");
+      } else {
+        console.log("Eres menor de edad");
+      }
+
+      let hora = 20;
+      if (hora >= 0 && hora <= 5) {
+        console.log("Déjame dormir");
+      } else if (hora >= 6 && hora <= 11) {
+        console.log("Buenos días");
+      } else if (hora >= 12 && hora <= 18) {
+        console.log("Buenas tardes");
+      } else {
+        console.log("Buenas noches");
+      }
+
+      //OPERADOR TERNARIO
+      //(condición) ? verdadero : falsa
+      console.log("Operador Ternario");
+      let eresMayor = edad >= 18 ? "Eres mayor de edad" : "Eres menor de edad";
+      console.log(eresMayor);
+
+      //SWITCH CASE
+      let dia = 2;
+      switch (dia) {
+        case 0:
+          console.log("Domingo");
+          break;
+        case 1:
+          console.log("Lunes");
+          break;
+        case 2:
+          console.log("Martes");
+          break;
+        case 3:
+          console.log("Miércoles");
+          break;
+        case 4:
+          console.log("Jueves");
+          break;
+        case 5:
+          console.log("Viernes");
+          break;
+        case 6:
+          console.log("Sábado");
+          break;
+
+        default:
+          console.log("El día no existe");
+          break;
+      }
+
+      console.log("**********CICLOS (LOOPS)************");
+      //CONDICIONALES
+
+      let contador = 0;
+      let acumulacion = "while: ";
+
+      while (contador < 10) {
+        acumulacion += `${contador}, `;
+        contador++;
+      }
+      console.log(acumulacion);
+
+      contador = 0;
+      acumulacion = "do while: ";
+      do {
+        acumulacion += `${contador}, `;
+        contador++;
+      } while (contador < 10);
+      console.log(acumulacion);
+
+      contador = 0;
+      acumulacion = "for: ";
+      for (let i = 0; i < 10; i++) {
+        acumulacion += `${i}, `;
+      }
+      console.log(acumulacion);
+
+      let numeros = [10, 20, 30, 40, 50, 60, 70, 80, 90];
+
+      acumulacion = "Recorrer Array for: ";
+      for (let i = 0; i < numeros.length; i++) {
+        acumulacion += `${numeros[i]}, `;
+      }
+      console.log(acumulacion);
+
+      const jon = {
+        nombre: "jon",
+        apellido: "Mircha",
+        edad: 35,
+      };
+
+      //FORIN
+      //interar las propiedades de un objeto
+      for (const propiedad in jon) {
+        //se usa corchetes para acceder al valor de la propiedad
+        console.log(propiedad + ", " + jon[propiedad]);
+      }
+
+      //FOROF
+      //iterar todos los elementos iterables en javaScript
+
+      acumulacion = "Recorrer forOf: ";
+      for (const elemento of numeros) {
+        acumulacion += `${elemento}, `;
+      }
+      console.log(acumulacion);
+
+      console.log("*********MANEJO DE ERRORES**********");
+      //MANEJO DE ERRORES
+
+      /*
+      try {
+        console.log("En el try se agrega el código a evaluar");
+        //error
+        noExiste;
+        console.log("Segundo mensaje en el try");
+      } catch (error) {
+        console.log("Captura cualquier error surgido o lanzado en el try");
+        console.log(error);
+      } finally {
+        console.log(
+          "El bloque finally se ejecutara siempre al final de un bloque trycatch"
+        );
+      }*/
+
+      try {
+        let numero = "d";
+
+        //isNaN es para evaluar si es un número
+        if (isNaN(numero)) {
+            throw new Error("El carácter introducido no es un número");
+        }
+        console.log(numero * numero);
+      } catch (error) {
+        console.log(`Se produjo el siguiente error: ${error}`);
+        
+      }
+
+      console.log("*********BREAK & CONTINUE***********");
+      //MANEJO DE ERRORES
+
+      const numeros2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+
+      for(let i = 0; i < numeros2.length; i++) {
+        if (i === 5) {
+          break;
+        } 
+        console.log(numeros2[i]);
+      }
+      for(let i = 0; i < numeros2.length; i++) {
+        if (i === 5) {
+          //se salta la posición 5. Omite el código restante de la iteración
+          continue;
+        } 
+        console.log(numeros2[i]);
+      }
+
+      console.log("**********DESTRUCTURACIÓN**********");
+      //DESTRUCTURACIÓN
+
+      //Sin destructuración
+      const numeros4 = [1, 2, 3];
+      let uno = numeros4[0], 
+        dos = numeros4[1],
+        tres = numeros4[2]; 
+      console.log(uno, dos, tres);
+
+      //Con destructuración
+      const [one, two, three] = numeros4;
+      console.log(one, two, three);
+
+      const persona = {
+        nombre2: "Jon",
+        apellido2: "Mircha",
+        edad2: 35
+      }
+
+      //sacar las propiedaes de un objeto y asignarlas a variables
+      let {nombre2, apellido2, edad2} = persona;
+      console.log(nombre2, apellido2, edad2);
+
+      console.log("********OBJETOS LITERALES**********");
+      //OBJETOS LITERALES
+
+      let nombre3 = "kEnAi";
+      let edad3 = 7;
+
+      const perro = {
+        nombre: nombre3,
+        edad: edad3,
+        ladrar: function () {
+          console.log("guauuuu guauuuuu");
+        }
+      }
+
+      console.log(perro);
+      perro.ladrar();
+
+      //sobreentiende que el nombre es la variable declarada previamente
+      const dog = {
+        nombre3,
+        edad3,
+        raza: "Callejero",
+        ladrar() {
+          console.log("guauuuu guauuuuu guauuuuuu");
+        }
+      }
+      console.log(dog);
+      dog.ladrar();
+
+      console.log("******REST & OPERADOR SPREAD*******");
+      //PARÁMETROS REST & OPERADOR SPREAD
+
+      //REST c lo recibe como si fuera un array
+      function sumar(a, b, ...c) {
+        let resultado = a + b;
+        c.forEach(function(n) {
+          resultado += n;
+        });
+
+        return resultado;
+      }
+
+      //podemos enviarle valores de forma dinámica
+      console.log(sumar(1, 2, 3, 4));
+      console.log(sumar(1, 2, 3, 4, 5));
+      console.log(sumar(1, 2, 3, 4, 5, 6));
+
+      //SPREAD OPERATOR
+      const arr1 = [1,2,3,4,5],
+        arr2 = [5,6,7,8,9];
+
+      console.log(arr1, arr2);
+
+      //combina los valores de los dos arr para solo tener un array
+      const arr3 = [...arr1, ...arr2];
+      console.log(arr3);
+
+      console.log("*********ARROW FUNCTIONS**********");
+      //ARROW FUNCTIONS
+
+      //Las ARROW FUNCTIONS funcionan con funciones anonimas expresada
+      const saludar = function() {
+        console.log("Hola");
+      }
+      
+      //ARROW FUNCTION
+      const saludar2 = () => {
+        console.log("Hola");
+      }
+
+      //ARROW FUNCTION DE UNA LINEA - RETURN IMPLICITO
+      const saludar3 = () => console.log("Hola");
+
+      //ARROW FUNCTION RECIBE ATRIBUTOS
+      const saludar4 = (nombre) => console.log(`Hola ${nombre}`);
+
+      //ARROW FUNCTION DE UN SOLO ATRIBUTO
+      const saludar5 = nombre => console.log(`Hola ${nombre}`);
+
+      //FUNCTION SUMAR SIN ARROW FUNCTION
+      const sumar2 = function (a, b) {
+        return a + b;
+      }
+
+      //SUMAR CON ARROW FUNCTION
+      const sumar3 = (a,b) => a + b;
+
+      //ARROW FUNCTION DE VARIAS LINEAS
+      const functionDeVariasLineas = () => {
+        console.log("Uno");
+        console.log("Dos");
+        console.log("Tres");
+      }
+
+      saludar();
+      saludar2();
+      saludar4("Irma");
+      console.log(sumar2(3, 5));
+      console.log(sumar3(3, 5));
+      functionDeVariasLineas();
+
+      const numeros3 = [1,2,3,4,5];
+
+      //ARRAY forEach CON UNA FUNCTION
+      numeros3.forEach(function(el, index) {
+        console.log(`El elemento ${el} esta en la posición ${index}`)
+      });
+
+      //ARRAY forEach CON ARROW FUNCTION
+      numeros3.forEach((el, index) => console.log(`El elemento ${el} esta en la posición ${index}`));
+
+      const perro2 = {
+        nombre : "Kenai",
+        ladrar: () => {
+          //Va a devolver el contexto window
+          //Tener cuidado declarando arrow function en objetos
+          console.log(this);
+        },
+        //forma correcta de declarar un método en un objeto
+        //devuelve correctamente el contexto del objeto
+        ladrar2() {
+          console.log(this);
+        }
+      }
+
+      perro2.ladrar();
+      perro2.ladrar2();
+    </script>
+  </body>
+</html>

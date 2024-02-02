@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Programación Orientada a Objetos</h1>
+    <script>
+        //POO
+        //En javascript las Clases son funciones prototipicas
+        /*
+            -Clases: Modelos a seguir.
+            -Objetos: Instancia de una Clase.
+            -Atributos: Es una característica o propiedad de objeto
+            -Métodos: Las accionse que un objeto puede realizar
+
+            No existe encapsulamiento en JavaScript
+            los métodos getters y setters se manejan como atributos
+        */
+
+        console.log("*************PROTOTIPOS***************");
+        //PROTOTIPOS
+
+        const animal = {
+            nombre: "Snoppy",
+            sonar() {
+                console.log("Hago sonidos porque estoy vivo")
+            }
+        }
+        const animal2 = {
+            nombre: "Lola Bunny",
+            sonar() {
+                console.log("Hago sonidos porque estoy vivo")
+            }
+        }
+
+        //encontraremos un prototiype Object
+        console.log(animal);
+        console.log(animal2);
+
+        //FUNCIÓN CONSTRUCTURA
+        //This hace referencia que pertenece al objeto, la función sirve para crear instancias a objetos
+        function Animal(nombre, genero) {
+            //Atributos
+            this.nombre = nombre;
+            this.genero = genero;
+
+            //Métodos
+            this.sonar = function () {
+                console.log("Hago sonidos porque estoy vivo")
+            }
+            this.saludar = function () {
+                console.log(`Hola me llamno ${this.nombre}`)
+            }
+
+        }
+
+        const snoppy = new Animal("Snoppy", "Masculino");
+        const lolaBunny = new Animal("Lola Bunny", "Hembra");
+
+        console.log(snoppy);
+        console.log(lolaBunny);
+        snoppy.saludar();
+
+        //Función constructora donde asignamos los métodos al Prototipo, no la la función como tal
+
+        function Animal2(nombre, genero) {
+            //Atributos
+            this.nombre = nombre;
+            this.genero = genero;
+        }
+
+        Animal2.prototype.saludar = function () {
+            console.log(`Hola me llano ${this.nombre}`);
+        }
+
+        const snoppy2 = new Animal2("Snoppy2", "Masculino");
+        console.log(snoppy2);
+        snoppy2.saludar();
+
+        console.log("*********HERENCIA PROTOTIPICA*********");
+        //HERENCIA PROTOTIPICA
+
+        function Perro(nombre, genero, tamanio) {
+            this.super = Animal2;
+            this.super(nombre, genero);
+            this.tamanio = tamanio;
+        }
+
+        //Perro está heredando de Animal
+        Perro.prototype = new Animal2();
+        //Le asignamos su propio constructor
+        Perro.prototype.constructor = Perro;
+
+        //Sobreescritura de métodos del Prototipo padre en hijo
+        Perro.prototype.sonar = function () {
+            console.log("Soy un perro y mi sonido es un ladrido");
+        }
+        Perro.prototype.ladrar = function () {
+            console.log("Guauuuuu Guauuuuu!");
+        }
+
+        const snoppy3 = new Perro("Snoppy3", "Masculino", "Mediano");
+        console.log(snoppy3);
+        snoppy3.ladrar();
+
+        console.log("**********CLASES Y HERENCIA**********");
+        //CLASES Y HERENCIA
+
+        class Animal3 {
+            constructor(nombre, genero) {
+                this.nombre = nombre;
+                this.genero = genero;
+            }
+
+            //Metodos
+            sonar() {
+                console.log("Hago sonidos por que estoy vivo");
+            }
+            saluar() {
+                console.log(`Hola me llamo ${this.nombre}`);
+            }
+        }
+
+        class Perro2 extends Animal3 {
+            constructor(nombre, genero, tamanio) {
+                //con el método super() se manda a llamar el constructor de la clase padre
+                super(nombre, genero);
+                this.tamanio = tamanio;
+            }
+            sonar() {
+                console.log("Soy un perro y mi sonido es un ladrido");
+            }
+            ladrar() {
+                console.log("Guauuuuu Guauuuuu!");
+            }
+        }
+
+        const mimi = new Animal3("Mimi", "Hembra");
+        const scooby = new Perro2("Scooby", "Macho", "Gigante");
+        console.log(mimi);
+        mimi.saluar();
+        console.log(scooby);
+        scooby.saluar();
+        scooby.sonar();
+        scooby.ladrar();
+
+        console.log("**MÉTODOS ESTÁTICOS, GETTERS Y SETTERS*");
+        //MÉTODOS ESTÁTICOS, GETTERS Y SETTERS
+
+        class Perro3 extends Animal3 {
+            constructor(nombre, genero, tamanio) {
+                //con el método super() se manda a llamar el constructor de la clase padre
+                super(nombre, genero);
+                this.tamanio = tamanio;
+                this.raza = null;
+            }
+            sonar() {
+                console.log("Soy un perro y mi sonido es un ladrido");
+            }
+            ladrar() {
+                console.log("Guauuuuu Guauuuuu!");
+            }
+            //Un método estático se pueden ejecutar sin necesidad de instanciar la clase
+            static queEres() {
+                console.log("Los perros somos animales mamíferos que pertenecemos a la familia de los caninos. Somos considerados los mejores amigos del hombre.");
+            }
+
+            //Los setters y getters son métodos especiales que nos permiten establecer y obtener los valores de atributos de nuestra clase
+            get getRaza () {
+                return this.raza;
+            }
+            set setRaza(raza) {
+                this.raza = raza;
+            }
+        }
+
+        Perro3.queEres();
+        const scooby2 = new Perro3("Scooby", "Macho", "Gigante");
+        //JavaScript get y set se maneja como variables: lo siguiente da error
+        //scooby2.getRaza();
+
+        console.log(scooby2.getRaza);
+        scooby2.setRaza = "Grán Danés";
+        console.log(scooby2.raza);
+    </script>
+</body>
+
+</html>

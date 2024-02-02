@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FizzBuzz</title>
+    <style>
+        body {
+            background-color: antiquewhite;
+        }
+    </style>
+</head>
+<body>
+    <h1>Fizz Buzz Algoritmo</h1>
+
+    <h1 style="color: pink;">Hola mia traviesa</h1>
+    <img src="imagenes/conejo.jpg" alt="" style="width: 20%;">
+
+    <script>
+        console.log("Fizz Buzz Algoritmo");
+        let numbers = new Array();
+        numbers = [];
+        numbers2 = [];
+
+        for (let i = 0; i < 100; i++) {
+            numbers[i] = i + 1;  
+        }
+
+        console.log(numbers);
+
+        multipleOf3 = number => {
+            return ((number % 3) === 0) ? true : false;
+        }
+        multipleOf5 = number => {
+            return ((number % 5) === 0) ? true : false;
+        }
+        
+        console.log(multipleOf3(95));
+        console.log(multipleOf5(16));
+
+        numbers.forEach((element, index) => {
+            if (multipleOf3(element) && multipleOf5(element)) {
+                numbers2[index] = "fizzbuzz";
+            } else if (multipleOf3(element)) {
+                numbers2[index] = "fizz";
+            } else if (multipleOf5(element)) {
+                numbers2[index] = "buzz";
+            } else {
+                numbers2[index] = element;
+            }
+        });
+
+        console.log(numbers2);
+
+
+        
+
+
+        
+
+    </script>    
+</body>
+</html>

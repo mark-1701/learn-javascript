@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <title>CRUD API REST AJAX</title>
+  <style>
+    body {
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>CRUD API REST XHR</h1>
+  <section class="crud">
+    <article class="col-md-3">
+      <h2 class="crud-title">Agregar Santo</h2>
+      <form action="" class="crud-form">
+        <input type="text" class="form-control" name="nombre" id="" placeholder="nombre" required>
+        <br>
+        <input type="text" class="form-control" name="constelacion" id="" placeholder="constelación" required>
+        <br>
+        <input type="submit" class="btn btn-primary" value="Enviar">
+        <input type="hidden" name="id" >
+      </form>
+    </article>
+    <article class="col-md-8">
+      <h2>Ver Santos</h2>
+      <table class="table table-dark table-hover crud-table" border="1px">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Constelación</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </article>
+  </section>
+  <template id="crud-template">
+    <tr>
+      <td class="name"></td>
+      <td class="constellation"></td>
+      <td>
+        <button class="edit btn btn-warning">Editar</button>
+        <button class="delete btn btn-danger">Eliminar</button>
+      </td>
+    </tr>
+  </template>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> -->
+
+  <script>
+    const d = document,
+      $table = d.querySelector('.crud-table'),
+      $form = d.querySelector('.crud-form'),
+      $title = d.querySelector('.crud-title'),
+      $template = d.getElementById('crud-template').content,
+      $frament = d.createDocumentFragment();
+
+    const ajax = (options) => {
+      let { url, method, success, error, data } = options;
+      const xhr = new XMLHttpRequest();
+
+      xhr.addEventListener('readystatechange', e => {
+        if (xhr.readyState !== 4) return;
+        if (xhr.status >= 200 && xhr.status < 299) {
+          let json = JSON.parse(xhr.responseText);
+          success(json); 
+        } else {
+          let message = xhr.statusText || "Ocurrió un error"; 
+          error(`Error ${xhr.status}: ${message}`); 
+        }
+      });
+
+      xhr.open(method || 'GET', url);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.send(JSON.stringify(data));
+    }
+
+    const getAll = () => {
+      ajax({
+        method: 'GET',
+        url: 'http://localhost:3000/santos',
+        success: (res) => {
+          console.log(res); 
+          res.forEach(el => {
+            $template.querySelector('.name').textContent = el.nombre; 
+            $template.querySelector('.constellation').textContent = el.constelacion; 
+            $template.querySelector('.edit').dataset.id = el.id; 
+            $template.querySelector('.edit').dataset.name = el.nombre; 
+            $template.querySelector('.edit').dataset.constellation = el.constelacion; 
+            $template.querySelector('.delete').dataset.id = el.id; 
+            let $clone = d.importNode($template, true); 
+            $frament.appendChild($clone); 
+          });
+          $table.querySelector('tbody').appendChild($frament); 
+
+        },
+        error: (err) => {
+          console.log(err); 
+          $table.insertAdjacentHTML('afterend', `<p><b>${err}</b></p>`);
+        },
+        data: null
+      })
+    }
+
+    d.addEventListener('DOMContentLoaded', getAll); 
+
+    d.addEventListener('submit', e => {
+      if (e.target === $form) {
+        e.preventDefault(); 
+        if(!e.target.id.value) {
+          // POST
+          ajax({
+            method: 'POST',
+            url: 'http://localhost:3000/santos',
+            success: () => {
+              location.reload(); 
+            },
+            error: () => {
+              $form.insertAdjacentHTML('afterend', `<p><b>${err}</b></p>`);
+            }, 
+            data: {
+              nombre: e.target.nombre.value,
+              constelacion: e.target.constelacion.value
+            }
+          }); 
+        } else {
+          // PUT
+          ajax({
+            method: 'PUT',
+            url: `http://localhost:3000/santos/${e.target.id.value}`,
+            success: () => {
+              location.reload(); 
+            },
+            error: () => {
+              $form.insertAdjacentHTML('afterend', `<p><b>${err}</b></p>`);
+            }, 
+            data: {
+              nombre: e.target.nombre.value,
+              constelacion: e.target.constelacion.value
+            }
+          }); 
+        }
+      }
+    });
+
+    d.addEventListener('click', e => {
+      if(e.target.matches('.edit')) {
+        $title.textContent = 'Editar Santo'; 
+        $form.nombre.value = e.target.dataset.name; 
+        $form.constelacion.value = e.target.dataset.constellation; 
+        $form.id.value = e.target.dataset.id; 
+      }
+      if(e.target.matches('.delete')) {
+        let isDelete = confirm(`¿Estás seguro de eleminar el id ${e.target.dataset.id}?`); 
+        if (isDelete) {
+          // DELETE
+          ajax({
+            method: 'DELETE',
+            url: `http://localhost:3000/santos/${e.target.dataset.id}`,
+            success: () => {
+              location.reload(); 
+            },
+            error: (err) => {
+              alert(err)
+            },
+            data: undefined
+          }); 
+        }
+      }
+    }); 
+  </script>
+</body>
+
+</html>

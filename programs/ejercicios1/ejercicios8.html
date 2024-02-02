@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Ejercicios 8</h1>
+    <script>
+        /*
+        24) Programa una función que dado un arreglo de números devuelva un objeto con dos arreglos, el primero tendrá los numeros ordenados en forma ascendente y el segundo de forma descendiente, pe. miFuncion([7, 5,7,8,6]) devolverá { asc: [5,6,7,7,8], desc: [8,7,7,6,5] }.
+        25) Programa una función que dado un arreglo de elementos, elimine los duplicados, pe. miFuncion(["x", 10, "x", 2, "10", 10, true, true]) devolverá ["x", 10, 2, "10", true].
+        26) Programa una función que dado un arreglo de números obtenga el promedio, pe. promedio([9,8,7,6,5,4,3,2,1,0]) devolverá 4.5.
+        */
+
+        console.log("EJERCICIOS 8 JAVASCRIPT");
+        console.log(
+            `24) Programa una función que dado un arreglo de números devuelva un objeto con dos arreglos, el primero tendrá los numeros ordenados en forma ascendente y el segundo de forma descendiente, pe. miFuncion([7, 5,7,8,6]) devolverá { asc: [5,6,7,7,8], desc: [8,7,7,6,5] }.`
+        );
+
+        const arregloAscDesc = array => {
+            // Índice Inicial del array ingresado
+            let globalIndex = array.length;
+            const newArrayDesc = new Array(); 
+            const newArrayAsc = new Array(); 
+            for (let i = 0; i < globalIndex; i++) {
+                // Se busca el elemento máximo y se inserta al array
+                newArrayDesc.push(Math.max(...array));
+                // Se hace una busqueda de índice del elemento máximo
+                let index = array.indexOf(Math.max(...array));
+                // Se elimina el elemento en donde se encuentra el elemento máximo
+                array.splice(index, 1);
+            }
+            //Uso slice para hacer una copia. Se utiliza slice para hacer una nueva referencia en memoria. De lo contrario estaría usando el mismo array de la misma referencia en memoria
+            let tempArray = newArrayDesc.slice();
+            for (let i = 0; i < globalIndex; i++) {
+                newArrayAsc.push(Math.min(...tempArray));
+                let index = tempArray.indexOf(Math.min(...tempArray));
+                tempArray.splice(index, 1);
+            }
+
+            return console.warn(
+                `\tasc: ${newArrayAsc}\n\tdesc: ${newArrayDesc}`
+            );
+            console.warn(newArrayAsc);
+            console.warn(newArrayDesc);
+        }
+
+        let arreglo1 = new Array(10);
+        for (let i = 0; i < arreglo1.length; i++) {
+            arreglo1[i] = Math.floor(Math.random() * 100);
+        }
+        arregloAscDesc(arreglo1);
+        arregloAscDesc([1, 2, 3, 3, 4, 5, 5])
+
+        console.log(
+            `25) Programa una función que dado un arreglo de elementos, elimine los duplicados, pe. miFuncion(["x", 10, "x", 2, "10", 10, true, true]) devolverá ["x", 10, 2, "10", true].`
+        );
+
+        const arregloEliminarDuplicados = array => {
+            let newArray = new Array();
+            array.forEach(element => {
+                if (!newArray.includes(element)) {
+                    newArray.push(element);
+                }
+            });
+            console.warn(newArray);
+        }
+
+        arregloEliminarDuplicados(["x", 10, "x", 2, "10", 10, 10, 11, 10, 11, 13, "x", true, true]);
+
+        console.log(
+            `26) Programa una función que dado un arreglo de números obtenga el promedio, pe. promedio([9,8,7,6,5,4,3,2,1,0]) devolverá 4.5.`
+        );
+
+        const arregloPromedio = array => {
+            let promedio = 0;
+            for (const element of array) {
+                promedio += element;
+            }
+            promedio /= array.length;
+            console.warn(promedio);
+        }
+
+        arregloPromedio([80, 70, 60, 80, 90]);
+        console.log(`------------------------------------------`);
+        console.log(`EJERCICIOS 8 JAVASCRIPT JONMIRCHA`);
+        console.log(
+            `24) Programa una función que dado un arreglo de números devuelva un objeto con dos arreglos, el primero tendrá los numeros ordenados en forma ascendente y el segundo de forma descendiente, pe. miFuncion([7, 5,7,8,6]) devolverá { asc: [5,6,7,7,8], desc: [8,7,7,6,5] }.`
+        );
+
+        const ordenarArreglo = (arr = undefined) => {
+            if (arr === undefined) return console.log("No ingresaste un arreglo de números");
+
+            if (!(arr instanceof Array)) return console.error("Solo se aceptan Arrays");
+
+            if (arr.length === 0) return console.error("El arreglo esta vacío"); 
+
+            for (const num of arr) {
+                if(typeof num !== "number") return console.error("Solo puedes ingresar numeros");
+            }
+
+            return console.warn({
+                arr, 
+                asc: arr.map(el => el).sort(),
+                desc: arr.map(el => el).sort().reverse()
+            })
+        }
+
+        ordenarArreglo(); 
+        ordenarArreglo("Hola");
+        ordenarArreglo([]); 
+        ordenarArreglo([3, {}]);
+        ordenarArreglo([1, 2, 3, 4]);
+
+        console.log(
+            `25) Programa una función que dado un arreglo de elementos, elimine los duplicados, pe. miFuncion(["x", 10, "x", 2, "10", 10, true, true]) devolverá ["x", 10, 2, "10", true].`
+        );
+
+        const quitarDuplicados = (arr = undefined) => {
+            if (arr === undefined) return console.log("No ingresaste un arreglo de números");
+
+            if (!(arr instanceof Array)) return console.error("Solo se aceptan Arrays");
+
+            if (arr.length === 0) return console.error("El arreglo esta vacío"); 
+
+            if (arr.length === 1) return console.warn("El arreglo debe de tener al menos 2 elementos");
+
+            /*
+            return console.warn({
+                original: arr,
+                //SOLO AÑADE EL PRIMERO, PORQUE SOLO VA A AÑADIR LOS ELEMENTOS QUE ENCUENTRA QUE COINCIDEN CON EL INDEX ACTUAL
+                sinDuplicados: arr.filter((value, index, self) => self.indexOf(value) === index)
+            });*/
+            return console.warn({
+                original: arr,
+                sinDuplicados: [new Set(arr)]
+            });
+        }
+
+        quitarDuplicados();
+        quitarDuplicados({}); 
+        quitarDuplicados([1])
+        quitarDuplicados(["x", 10, "x", 2, "10", 10, true, true]);
+
+        console.log(
+            `26) Programa una función que dado un arreglo de números obtenga el promedio, pe. promedio([9,8,7,6,5,4,3,2,1,0]) devolverá 4.5.`
+        );
+
+        const promedio = (arr = undefined) => {
+            if (arr === undefined) return console.log("No ingresaste un arreglo de números");
+
+            if (!(arr instanceof Array)) return console.error("Solo se aceptan Arrays");
+
+            if (arr.length === 0) return console.error("El arreglo esta vacío"); 
+
+            for (const num of arr) {
+                if(typeof num !== "number") return console.error("Solo puedes ingresar numeros");
+            }
+
+            return console.warn({
+                arr: arr.reduce((total, num, index, arr) => {
+                    total += num; 
+                    if (index === arr.length - 1) {
+                        return `El promedio de ${arr.join(" + ")} es ${total / arr.length}`;
+                    } else {
+                        return total;
+                    }
+                })
+            })
+
+        }
+
+        promedio([1, 2, 3, 4, 5]); 
+    </script>
+</body>
+
+

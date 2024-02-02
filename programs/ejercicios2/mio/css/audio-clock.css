@@ -1,0 +1,15 @@
+.audio-btn {
+    background-color: #3498DB;
+    color: #fff;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+}
+
+#audio-control-card {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}

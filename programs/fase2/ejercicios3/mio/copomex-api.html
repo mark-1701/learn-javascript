@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Copomex API</title>
+  </head>
+  <body>
+    <h1>Selects Anidados</h1>
+    <form action="">
+      <label for="estados">Estados:</label>
+      <select name="estados" id="select-states">
+        <option value="none">Eligen un Estado</option>
+      </select>
+      <br /><br />
+      <label for="minicipios">Minicipios:</label>
+      <select name="municipios" id="select-towns">
+        <option value="none">Elige un Minicipio</option>
+      </select>
+    </form>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.5/axios.min.js"
+      integrity="sha512-TjBzDQIDnc6pWyeM1bhMnDxtWH0QpOXMcVooglXrali/Tj7W569/wd4E8EDjk1CwOAOPSJon1VfcEt1BI4xIrA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      const d = document,
+        $selectStates = d.querySelector("#select-states"),
+        $selectTowns = d.querySelector("#select-towns"),
+        token = "13d3ef0e-21ca-462f-9879-cf206114c1ac";
+
+      d.addEventListener("DOMContentLoaded", async e => {
+        const res = await axios("assets/estados.json");
+        const estado = res.data.response.estado;
+        estado.forEach(el => ($selectStates.innerHTML += `<option value="${el}">${el}</option>`));
+      });
+
+      d.addEventListener("change", async e => {
+        if (e.target === $selectStates) {
+          //dejar el primer elemento
+          $selectTowns.innerHTML = '<option value="none">Elige un Minicipio</option>';
+
+          const res = await axios(`https://api.copomex.com/query/get_municipio_por_estado/${$selectStates.value}?token=${token}`);
+          const municipios = res.data.response.municipios;
+          municipios.forEach(el => ($selectTowns.innerHTML += `<option value="${el}">${el}</option>`));
+        }
+      });
+    </script>
+  </body>
+</html>
